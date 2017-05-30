@@ -1,0 +1,289 @@
+﻿@model MVC_BusinessEntity.CLlt05_cita
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tableDetalle').dataTable({
+
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+
+        });
+
+        //Agregar Tabla Detalle
+        function AgregarDetalle()
+        {
+            var comboServicio = document.getElementById("idServicio");
+            var indice = comboServicio.selectedIndex;
+            var nombreServicio = comboServicio.options[comboServicio.selectedIndex].text;
+            var subtotal = parseFloat($("#cantidad").val()) * parseFloat($("#precio").val());
+
+            $("#tableDetalle").dataTable().fnAddData([$("#idServicio").val(),
+                                                      nombreServicio,
+                                                      $("#cantidad").val(),
+                                                      parseFloat($("#precio").val()).toFixed(2),
+                                                      parseFloat(subtotal).toFixed(2)]);
+
+            comboServicio.selectedIndex = 0;
+            $("#cantidad").val("0");
+            $("#precio").val($("#precioEscondido").val());
+        }
+
+        //Obtiene el idServicio seleccionado y manda el precio
+        var getServicioUrl = '@Url.Action("ObtenerServicio")';
+        $(function () {
+
+            $('#idServicio').change(
+                function () {
+
+                    var idServicioSeleccionado = $('#idServicio').val();
+                    if (idServicioSeleccionado != null) {
+                        $.getJSON(getServicioUrl, { idServicio: idServicioSeleccionado },
+                            function (subs) {
+                                var subSelect = $('#precio').val();
+                                $('#precio').empty();
+                                $('#precio').val(subs.toString());
+                            });
+                    }
+                });
+
+        });
+
+
+        //Enviar Cita al Controller
+
+        $(document).on("click", "#Enviar", function () {
+            var Cita = { "codCita": "", "fecCita": "", "horaInicio": "", "duracionEstimada": "", "esOnline": "", "obsvCita": "", "mtoTotal": "", "idPaciente": "", "idEmpleado": "", "olistCitaDtl": [] };
+            var CitaDtl = { "idServicio": "", "cantidad": "", "precio": "" };
+
+            Cita.codCita = $("#codCita").val();
+            Cita.fecCita = $("#fecCita").val();
+            Cita.horaInicio = $("#horaInicio").val();
+            Cita.duracionEstimada = $("#duracionEstimada").val();
+            Cita.esOnline = $("#esOnline").val();
+            Cita.obsvCita = $("#obsvCita").val();
+            Cita.mtoTotal = $("#mtoTotal").val();
+            Cita.idPaciente = $("#idPaciente").val();
+            Cita.idEmpleado = $("#idEmpleado").val();
+
+
+            var tablaDetalle = $("#tableDetalle").dataTable().fnGetData();
+
+            for (var i = 0; i < tablaDetalle.length; i++) {
+
+                CitaDtl.idServicio = tablaDetalle[i][0];
+                CitaDtl.cantidad = tablaDetalle[i][2];
+                CitaDtl.precio = tablaDetalle[i][3];
+                Cita.olistCitaDtl.push(CitaDtl);
+                CitaDtl = { "idServicio": "", "cantidad": "", "precio": "" };
+            }
+
+            $.ajax(
+            {
+                url: '/Cita/Create',
+                data: JSON.stringify({ 'oCita': Cita }),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        window.location.href = "/Cita/Index";
+                    }
+                    else {
+                        alert(result.ex);
+                    }
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+
+        <div class="form-horizontal">
+            <h4>Cita</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.codCita, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.codCita, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.codCita, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.fecCita, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fecCita, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fecCita, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.horaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.horaInicio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.horaInicio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.esOnline, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.esOnline)
+                        @Html.ValidationMessageFor(model => model.esOnline, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.obsvCita, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.obsvCita, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.obsvCita, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.mtoTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.mtoTotal, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.mtoTotal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.idPaciente, "idPaciente", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("idPaciente", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.idPaciente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.idEmpleado, "idEmpleado", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("idEmpleado", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.idEmpleado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("idServicio", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("idServicio", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("cantidad", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("cantidad", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.idEmpleado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <input type="hidden" id="precioEscondido" name="precioEscondido" value="@Html.Value("precio")" />
+
+            <div class="form-group">
+                @Html.Label("precio", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("precio", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.idEmpleado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <input type="hidden" id="subtotal" name="subtotal" value="0" />
+
+
+            <input type="button" value="Agregar Detalle" onclick="AgregarDetalle()" />
+
+            <table id="tableDetalle">
+                <thead>
+                    <tr>
+                        <th>ID Servicio</th>
+                        <th>Servicio</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.oListCitaDtl)
+                        {
+                            <tr>
+                                <td>@Html.DisplayTextFor(i => item.idServicio)</td>
+                                <td>@Html.DisplayTextFor(i => item.cantidad)</td>
+                                <td>@Html.DisplayTextFor(i => item.precio)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Enviar" id="Enviar" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

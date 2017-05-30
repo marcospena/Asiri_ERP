@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asiri_ERP", "Asiri_ERP\Asiri_ERP.csproj", "{4F7FBE17-CCD3-4B46-A7FB-4A988B15A11D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC_BusinessEntity", "MVC_BusinessEntity\MVC_BusinessEntity.csproj", "{BCA66284-81D2-46B9-9960-206725BDD971}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F7FBE17-CCD3-4B46-A7FB-4A988B15A11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F7FBE17-CCD3-4B46-A7FB-4A988B15A11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F7FBE17-CCD3-4B46-A7FB-4A988B15A11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F7FBE17-CCD3-4B46-A7FB-4A988B15A11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA66284-81D2-46B9-9960-206725BDD971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA66284-81D2-46B9-9960-206725BDD971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA66284-81D2-46B9-9960-206725BDD971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA66284-81D2-46B9-9960-206725BDD971}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

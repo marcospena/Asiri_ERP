@@ -1,0 +1,334 @@
+﻿@model IEnumerable<MVC_BusinessEntity.CLlt05_cita>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS-->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <title>Clinica MagicDent</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!--if lt IE 9
+    script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+    script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    -->
+    <style>
+        .borde1 {
+            border: 1px #000 solid;
+            text-align: center;
+        }
+
+        .borde {
+            border: 1px #000fff solid;
+        }
+
+        .borde2 {
+            border: 1px #295ba7 solid;
+            text-align: center;
+        }
+
+        .action {
+            float: right;
+        }
+    </style>
+</head>
+<body class="sidebar-mini fixed">
+    <div class="wrapper">
+        <!-- Navbar-->
+        <header class="main-header hidden-print">
+            <a class="logo" href="../layout.html">CMD</a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button--><a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
+                <div class="navbar-custom-menu">
+                    <ul class="top-nav">
+                        <!--Notification Menu-->
+                        <li class="dropdown notification-menu">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell-o fa-lg"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="not-head">Tienes 4 nuevas notificaciones</li>
+                                <li>
+                                    <a class="media" href="javascript:;">
+                                        <span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                                        <div class="media-body"><span class="block">Mariel te ha enviado un mensaje</span><span class="text-muted block">Hace 2 minutos</span></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media" href="javascript:;">
+                                        <span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                                        <div class="media-body"><span class="block">El servidor no esta activo</span><span class="text-muted block">Hace 2 minutos</span></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media" href="javascript:;">
+                                        <span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
+                                        <div class="media-body"><span class="block">Transacción abc terminada</span><span class="text-muted block">Hace 2 minutos</span></div>
+                                    </a>
+                                </li>
+                                <li class="not-footer"><a href="#">Mirar todas las notificaciones</a></li>
+                            </ul>
+                        </li>
+                        <!-- User Menu-->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
+                            <ul class="dropdown-menu settings-menu">
+                                <li><a href="#"><i class="fa fa-cog fa-lg"></i> Opciones</a></li>
+                                <li><a href="#"><i class="fa fa-user fa-lg"></i> Perfil</a></li>
+                                <li><a href="#"><i class="fa fa-sign-out fa-lg"></i> Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+
+        <aside class="main-sidebar hidden-print">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left image"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image"></div>
+                    <div class="pull-left info">
+                        <p>JuanJ</p>
+                        <p class="designation">Juan Jose</p>
+                    </div>
+                </div>
+                <!-- Sidebar Menu-->
+                <ul class="sidebar-menu">
+                    <li class="treeview"><a href="../layout.html"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
+
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-users"></i><span> Mant. Usuario</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="../Usuario/index.html"><i class="fa fa-user"></i>Usuario</a></li>
+                            <li><a href="../Perfiles/index.html"><i class="fa fa-user"></i>Perfiles</a></li>
+                            <li><a href="../Rol/index.html"><i class="fa fa-user"></i>Roles</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-user"></i><span>Mant. Empleado</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="../Empleado/index.html"><i class="fa fa-user"></i>Empleado</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i>Historial</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-edit"></i><span>Citas</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="form-componants.html"><i class="fa fa-circle-o"></i>Registrar Cita</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-user"></i><span>Empleado</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i>Registrar Empleado</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i>Registrar Asistencia</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-file-text"></i><span>Servicios</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Registrar Servicio</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+
+
+        <div class="content-wrapper">
+            <!--********************************TITULO*******************************-->
+            <div class="page-title">
+                <div>
+                    <h1><i class="fa fa-edit"></i> Mantenimiento de Citas</h1>
+                    <p>Lista de citas ...!</p>
+                </div>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><i class="fa fa-home fa-lg"></i></li>
+                        <li>Citas</li>
+                        <li><a href="#">Lista Citas</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--********************************FIN TITULO*******************************-->
+            <!--AQUÍ VA EL CODIGO-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!--CODIGO MODIFICAR-->
+                    <div class="card">
+                        <!--*********************************************AQUÍ MODIFICAR CARD***************************-->
+                        <!--*********************************************CARD***************************-->
+                        <!--CONTAINER TITLE-->
+                        <div class="container" id="MantenimientoEmpleado">
+                            <!--NOMBRE DE MANTENIMIENTO-->
+                            <h3 style="display:inline-block;" class="header-title"><i class="glyphicon glyphicon-cog"></i></h3>
+                        </div>
+                        <!--ACTIONS-->
+                        <div class="card-title-w-btn ">
+                            <!--NEW PATIENT-->
+                            <div class="bs-component">
+                                <div>
+                                    <a class="btn btn-info icon-btn" href="/Cita/Create">
+                                        <i class="fa fa-fw fa-lg fa-user-plus"></i>Nueva Cita
+                                    </a>
+                                </div>
+                            </div>
+                            <!--EXPORT-->
+                            <div class="btn-group">
+                                <a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-fw fa-lg fa-cloud-download"></i>Exportar <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">PDF</a></li>
+                                    <li><a href="#">Excel</a></li>
+                                    <li><a href="#">Otro</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <!--***************TABLE*************-->
+                        <div class="card-body table-responsive">
+                            <table class="table table-hover table-bordered " id="sampleTable">
+                                <thead style="color:#ffffff;background:#0094ff;">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Fecha</th>
+                                        <th>Fecha de Registro</th>
+                                        <th>Hora de Inicio</th>
+                                        <th>Duración</th>
+                                        <th>Online</th>
+                                        <th>Estado</th>
+                                        <th>Detalle</th>
+                                        <th>Editar</th>
+                                        <th>Cancelar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.codCita)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.fecCita)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.fecRegistro)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.horaInicio)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.duracionEstimada)
+                                            </td>
+                                            <td>
+                                                <!--<i class="fa fa-lg fa-square-o"></i-->
+                                                <div class="col-md-12" style="text-align: center;">
+                                                    @if (item.esOnline == true)
+                                                    {
+                                                        <a class="btn btn-primary btn-container" href="">SI</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-primary btn-container" href="">NO</a>
+                                                    }
+
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CLlt09_estadoCita.descEstadoCita)
+                                            </td>
+                                            <td>
+                                                <div class="col-md-12">
+
+                                                    <a class="btn btn-default btn-flat" href="~/Cita/Details/@item.idCita"><i class="fa fa-lg fa-plus"></i></a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-md-12">
+
+                                                    <a class="btn btn-warning btn-flat" href="~/Cita/Edit/@item.idCita"><i class="fa fa-lg fa-edit"></i></a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-md-12">
+                                                    <a class="btn btn-success btn-flat" href="~/Cita/Delete/@item.idCita"><i class="fa fa-lg fa-reply"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--******************TABLE***********-->
+                        <!--*******************************************FIN***********************************-->
+                    </div>
+                </div>
+                <!--FIN DE MODIFICAR-->
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <!-- Javascripts-->
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/essential-plugins.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/plugins/pace.min.js"></script>
+    <script src="~/Scripts//main.js"></script>
+    <!--TABLESCRIPT-->
+    <script type="text/javascript" src="~/Scripts/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+    //$('#sampleTable').DataTable();
+
+                $(document).ready(function ()
+            {
+                $('#sampleTable').dataTable({
+
+                    language: {
+                        processing: "En curso...",
+                        search: "Buscar:",
+                        lengthMenu: "Visualizar _MENU_ registros",
+                        info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                        infoEmpty: "0 registros encontrados",
+                        infoFiltered: "(_MAX_ registros filtrados en total)",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando registros...",
+                        zeroRecords: "No hay registros",
+                        emptyTable: "Vacío",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Previo  ",
+                            next: "  Siguiente",
+                            last: "Último"
+                        },
+                        aria: {
+                            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": Habilitado para ordenar la columna en orden descendente"                }
+                    }
+                });
+
+            });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e47bdc53e6cf46329db8c01ff3086142" Name="Diagram1">
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLIt01_anamnesis" Width="1.5" PointX="16.5" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLIt02_archivoEstudioCompl" Width="1.5" PointX="18.75" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt03_atencion" Width="1.5" PointX="14.25" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt04_cie10" Width="1.5" PointX="17.25" PointY="83.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt05_cita" Width="1.5" PointX="12" PointY="43.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt06_citaDtl" Width="1.5" PointX="14.25" PointY="43.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt07_consultorio" Width="1.5" PointX="7.5" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt08_diagnostico" Width="1.5" PointX="19.5" PointY="51.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt09_estadoCita" Width="1.5" PointX="9.75" PointY="44.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt10_estudioCompl" Width="1.5" PointX="16.5" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt11_evolucion" Width="1.5" PointX="16.5" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt12_examenFisico" Width="1.5" PointX="16.5" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt13_funcionVital" Width="1.5" PointX="16.5" PointY="56.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt14_seguro" Width="1.5" PointX="9.75" PointY="57.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt15_seguroPaciente" Width="1.5" PointX="12" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt16_tratamiento" Width="1.5" PointX="21.75" PointY="51.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.CLlt17_tratamientoDtl" Width="1.5" PointX="24" PointY="51.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.MSTt01_medioDePago" Width="1.5" PointX="7.5" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.MSTt02_piso" Width="1.5" PointX="5.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.MSTt03_redSocial" Width="1.5" PointX="10.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.MSTt04_sucursal" Width="1.5" PointX="17" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.MSTt05_tipoSucursal" Width="1.5" PointX="14.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.PROt01_categoria" Width="1.5" PointX="19.5" PointY="55.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.PROt02_producto" Width="1.5" PointX="21.75" PointY="55.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.PROt03_productoUnidadDeMedida" Width="1.5" PointX="24" PointY="55.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.PROt04_servicio" Width="1.5" PointX="12" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.PROt05_tipoDeServicio" Width="1.5" PointX="9.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.PROt06_unidadDeMedida" Width="1.5" PointX="21.75" PointY="60.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt01_empleado" Width="1.5" PointX="9.75" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt02_empleadoEspecialidad" Width="1.5" PointX="15" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt03_empleadoTurno" Width="1.5" PointX="12" PointY="57.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt04_especialidad" Width="1.5" PointX="12.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt05_estadoCivil" Width="1.5" PointX="5.25" PointY="31.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt06_horario" Width="1.5" PointX="12" PointY="61.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt07_paciente" Width="1.5" PointX="9.75" PointY="52.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt08_periodoRemuneracion" Width="1.5" PointX="7.5" PointY="45" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt09_persona" Width="1.5" PointX="7.5" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt10_personaRedSocial" Width="1.5" PointX="12.75" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt11_tipoDeEmpleado" Width="1.5" PointX="7.5" PointY="49.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt12_tipoDocIdentidad" Width="1.5" PointX="5.25" PointY="42.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.RHUt13_tipoEspecialidad" Width="1.5" PointX="10.5" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.SISt01_parametro" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.SNTt01_entidadFinanciera" Width="1.5" PointX="7.5" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.SNTt02_impuesto" Width="1.5" PointX="17" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.SNTt03_moneda" Width="1.5" PointX="17" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.SNTt04_tipoComprobante" Width="1.5" PointX="17" PointY="75.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.SNTt05_tipoMedioDePago" Width="1.5" PointX="5.25" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.TNSt01_comprobanteEmitido" Width="1.5" PointX="19.25" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.TNSt02_comprobanteEmitidoDtl" Width="1.5" PointX="24.5" PointY="42" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.TNSt03_cuota" Width="1.5" PointX="16.5" PointY="61.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.TNSt04_estadoComprobante" Width="1.5" PointX="17" PointY="79.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.TNSt05_estadoDeCuenta" Width="1.5" PointX="14.25" PointY="63.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.TNSt06_medioDePagoDtl" Width="1.5" PointX="21.5" PointY="40.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.UBIt01_distrito" Width="1.5" PointX="5.25" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.UBIt02_provincia" Width="1.5" PointX="3" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.UBIt03_region" Width="1.5" PointX="0.75" PointY="37.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.UBIt04_via" Width="1.5" PointX="5.25" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.UBIt05_zona" Width="1.5" PointX="5.25" PointY="50.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.USRt01_login" Width="1.5" PointX="16.5" PointY="67" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.USRt02_permiso" Width="1.5" PointX="16.5" PointY="70.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.USRt03_rol" Width="1.5" PointX="12" PointY="74.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.USRt04_usuario" Width="1.5" PointX="12" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Asiri_ERPModel.USRt05_usuarioRol" Width="1.5" PointX="14.25" PointY="68.875" IsExpanded="true" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt03_atencion16" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt10_estudioCompl14" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt03_atencion11" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt03_atencion12" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt03_atencion13" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt03_atencion18" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt03_atencion31" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt05_cita9" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt04_cie1020" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt05_cita101" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt05_cita113" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt05_cita36" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt09_estadoCita75" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt01_empleado90" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt07_paciente33" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt06_citaDtl112" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt04_servicio102" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt07_consultorio100" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt02_piso82" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt08_diagnostico22" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt14_seguro59" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt07_paciente60" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefCLlt16_tratamiento24" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt02_producto25" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt04_servicio27" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt01_medioDePago44" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt01_medioDePago51" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt01_medioDePago89" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefSNTt05_tipoMedioDePago43" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt03_redSocial86" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt04_sucursal73" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefMSTt05_tipoSucursal72" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt01_categoria23" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt02_producto78" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefSNTt03_moneda70" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt06_unidadDeMedida77" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefPROt05_tipoDeServicio84" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt04_especialidad111" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt01_empleado110" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt01_empleado3" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt01_empleado80" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt01_empleado95" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt08_periodoRemuneracion88" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt09_persona69" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt11_tipoDeEmpleado85" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefSNTt01_entidadFinanciera61" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt04_especialidad4" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt13_tipoEspecialidad83" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt05_estadoCivil65" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt09_persona68" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt09_persona87" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefRHUt12_tipoDocIdentidad66" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUBIt01_distrito67" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUBIt04_via64" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUBIt05_zona63" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefSNTt02_impuesto94" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefSNTt03_moneda71" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefSNTt04_tipoComprobante48" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefTNSt01_comprobanteEmitido35" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefTNSt01_comprobanteEmitido47" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefTNSt04_estadoComprobante74" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefTNSt05_estadoDeCuenta50" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUBIt02_provincia42" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUBIt03_region41" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUSRt05_usuarioRol108" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUSRt05_usuarioRol109" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUSRt03_rol105" ManuallyRouted="false" />
+        <AssociationConnector Association="Asiri_ERPModel.RefUSRt04_usuario104" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

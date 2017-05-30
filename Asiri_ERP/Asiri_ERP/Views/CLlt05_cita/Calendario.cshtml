@@ -1,0 +1,200 @@
+﻿@model MVC_BusinessEntity.CLlt05_cita
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Calendario</title>
+    <link href="~/Content/fullcalendar.css" rel="stylesheet" />
+    <script src="~/Scripts/lib/jquery.min.js"></script>
+    <script src="~/Scripts/lib/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.js"></script>
+    <script src="~/Scripts/locale/es.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <style>
+        * {
+        }
+        #agenda {
+	        width: 100%; 
+            
+            margin: 0px auto;
+        }
+        #agenda div {
+            width: 300px;
+            height: 100%;
+            display:table-cell;
+            margin: 0px auto;
+            padding: 20px 20px 20px 20px;
+        }
+
+            button {
+                width: 200px;
+                display: block;
+                margin: 0 auto;
+                margin-top: 10px;
+            }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            // page is now ready, initialize the calendar...
+
+            $('#calendar').fullCalendar({
+                locale: 'es',
+                firstDay: 1,
+                columnFormat: 'dddd, D  MMMM YYYY',
+                header: {
+                    left:   '',
+                    center: 'prev    next',
+                    right:  ''
+                },
+                slotEventOverlap: false,
+                slotLabelFormat: 'h(:mm)a',
+                minTime: '08:00:00',
+                maxTime: '20:00:00',
+                customButtons: {
+                    buttonFecha: {
+                        text: '8 AM - 10 PM',
+                        click: function () {
+                            alert('clicked the custom button!');
+                        }
+                    }
+                },
+                allDaySlot: false,
+                slotDuration: '00:30:00',
+                height: 'auto',
+                defaultView: 'AgendaFiveDay',
+                views: {AgendaFiveDay:{
+                    type: 'agenda',
+                    duration: { days: 5 },
+                    buttonText: '5 days'}
+                },
+                events: [
+                    {
+                        title: 'buttonFecha',
+                        start: '2017-05-26T11:30:00',
+                        end: '2017-05-26T12:30:00'
+
+                    },
+                    {
+                        title: 'event2',
+                        start: '2017-05-26T12:30:00',
+                        end: '2017-05-26T13:00:00'
+                    },
+                    {
+                        title: 'event3',
+                        start: '2017-05-25T15:30:00',
+                        allDay: false // will make the time show
+                    }
+                ]
+            })
+
+            
+            //var nuevoDiv = document.getElementById("agenda");
+            //var horaInicio = 8;
+            //var horaFin = 8;
+            //var duracion = 30;
+            //for (var i = 1; i < 6; i++) {
+            //    var div = document.createElement('div');
+            //    div.id = "contentHorario" + i;
+            //    document.getElementById("agenda").appendChild(div);
+            //    for (var j = 1; j < 49; j++) {
+            //        var button = document.createElement('button');
+            //        button.id = "id" + j;
+            //        button.className = "btn btn-info";
+            //        var buttonAnterior = $("#id" + [j - 1]).val();
+                    
+            //        if (buttonAnterior == null) {
+            //            button.value = "08:00 AM - 08:" + duracion + " AM";
+                        
+            //        }
+            //        else
+            //        {
+                        
+            //            var hora1 = parseInt(buttonAnterior.substring(0, 2));
+            //            var hora2 = parseInt(buttonAnterior.substring(11, 13));
+            //            var minuto1 = parseInt(buttonAnterior.substring(3, 5));
+            //            var minuto2 = parseInt(buttonAnterior.substring(14, 16));
+            //            var ampm1 = buttonAnterior.substring(6, 8);
+            //            var ampm2 = buttonAnterior.substring(17, 19);
+            //            var digito1 = "0";
+            //            var digito2 = "0";
+            //            if (hora1.toString().length == 2)
+            //            {
+            //                digito1 = "";
+            //            }
+            //            if (hora2.toString().length == 2) {
+            //                digito2 = "";
+            //            }
+            //            if(hora1 >= 12 && hora2 >= 12)
+            //            {
+            //                ampm1 = "PM";
+            //                ampm2 = "PM";
+            //            }
+
+            //            if ([hora2 + 1] == 12) {
+            //                ampm2 == "PM";
+            //            }
+                        
+            //            if (hora1 < 12 && [minuto2 + duracion] < 60) {
+                            
+            //                if (minuto2 == 0) {
+            //                    if ([hora2].toString().length == 2) {
+            //                        button.value = hora2 + ":00 " + ampm2 + " - " + digito2 + hora2 + ":" + [minuto2 + duracion] + " " + ampm2;
+            //                    }
+            //                    else
+            //                    {
+            //                        button.value = digito1 + hora2 + ":00 " + ampm2 + " - " + digito2 + hora2 + ":" + [minuto2 + duracion] + " " + ampm2;
+            //                    }
+                                
+                                
+            //                }
+            //                else {
+            //                    button.value = digito1 + hora2 + ":" + minuto2 + " " + ampm2 + " - " + digito2 + hora2 + ":" + [minuto2 + duracion] + " " + ampm2;
+            //                }
+                            
+            //            }
+            //            if(hora1 == 12 && [minuto2 + duracion] == 60)
+            //            {
+            //                if ([hora2 + 1].toString().length == 2) {
+            //                    button.value = digito1 + hora1 + ":00 PM - " + [hora2 + 1] + ":00 PM";
+            //                }
+            //                else {
+            //                    button.value = digito1 + hora1 + ":00 PM - " + digito2 + [hora2 + 1] + ":00 PM";
+            //                }
+                            
+            //            }
+                        
+            //            if (hora1 < 12 && [minuto2 + duracion] == 60) {
+            //                if ([hora2 + 1].toString().length != 2) {
+                                
+            //                    button.value = digito1 + hora2 + ":" + minuto2 + " " + ampm1 + " - " + digito2 + [hora2 + 1] + ":00 " + ampm2;
+            //                }
+            //                else {
+            //                    button.value = digito1 + hora2 + ":" + minuto2 + " " + ampm1 + " - " + [hora2 + 1] + ":00 " + ampm2;
+            //                }
+                            
+            //            }
+                        
+            //        }
+                    
+            //        var valueText = document.createTextNode(button.value);
+            //        button.appendChild(valueText);
+            //        document.getElementById("contentHorario" + i).appendChild(button);
+                    
+            //    }
+            //}
+            
+            
+        });
+    </script>
+</head>
+<body>
+    <div id="calendar"></div>
+</body>
+</html>
