@@ -7,11 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
+//ADD
+using System.ComponentModel.DataAnnotations;
+using MVC_BusinessEntity.Models;
+//
+
 namespace MVC_BusinessEntity
 {
     using System;
     using System.Collections.Generic;
-    
+
+    //ADD
+    [MetadataType(typeof(RHUt09_personaVal))]
+    //
+
     public partial class RHUt09_persona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +31,6 @@ namespace MVC_BusinessEntity
             this.RHUt07_paciente = new HashSet<RHUt07_paciente>();
             this.RHUt10_personaRedSocial = new HashSet<RHUt10_personaRedSocial>();
         }
-    
         public long idPersona { get; set; }
         public string nombrePersona { get; set; }
         public string apellidoPaterno { get; set; }

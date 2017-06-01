@@ -5,6 +5,6 @@ C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\bin\Debug\Entit
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\bin\Debug\EntityFramework.xml
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\obj\Debug\MVC_BusinessEntity.csprojResolveAssemblyReference.cache
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\obj\Debug\MVC_BusinessEntity.dll
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\obj\Debug\MVC_BusinessEntity.pdb
-C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\MVC_BusinessEntity\obj\Debug\MVC_BusinessEntity.csprojResolveAssemblyReference.cache
