@@ -1,0 +1,41 @@
+﻿<div class="col-md-12" style="text-align: center;">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-inline">
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        <!--input onclick="submitAction(this)" id="submit_value" type="button" name="submit_value" value="Agregar"/-->
+
+                        <button type="submit" class="btn-primary">Guardar</button>
+
+                        @*<button type="submit" value="" class="btn btn-primary icon-btn">
+                                <i class="fa fa-fw fa-lg fa-check-circle">
+                                </i>Registrar
+                            </button>&nbsp;&nbsp;&nbsp;*@
+
+                        <a class="btn btn-default icon-btn" href="#">
+                            <i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="#tab2">Ir a l tab 2</a>
+                        <input type="button" id="new" />
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $("#new").click(function () {
+        //$('.nav-tabs a:last').tab('show')
+        //$('.nav-tabs a:first').tab('show')
+        $('.nav-tabs li:eq(1) a').tab('show')
+    })
+</script>
+

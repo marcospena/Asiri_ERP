@@ -199,12 +199,16 @@
     <Compile Include="Controllers\CLlt05_citaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RHUt07_pacienteController.cs" />
+    <Compile Include="Controllers\RHUt09_personaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Validation\Class1.cs" />
+    <Compile Include="Models\Validation\RHUt09_persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -378,6 +382,20 @@
     <Content Include="Views\CLlt05_cita\Edit.cshtml" />
     <Content Include="Views\CLlt05_cita\Index.cshtml" />
     <Content Include="Views\CLlt05_cita\Calendario.cshtml" />
+    <Content Include="Views\RHUt09_persona\Create.cshtml" />
+    <Content Include="Views\RHUt09_persona\Delete.cshtml" />
+    <Content Include="Views\RHUt09_persona\Details.cshtml" />
+    <Content Include="Views\RHUt09_persona\Edit.cshtml" />
+    <Content Include="Views\RHUt09_persona\Index.cshtml" />
+    <Content Include="Views\RHUt09_persona\RHUt07_paciente\_Create.cshtml" />
+    <Content Include="Views\Shared\StarttabsCreate.cshtml" />
+    <Content Include="Views\Shared\StartconfirmationCreate.cshtml" />
+    <Content Include="Views\Shared\HeadpartialIndex.cshtml" />
+    <Content Include="Views\RHUt07_paciente\Create.cshtml" />
+    <Content Include="Views\RHUt07_paciente\Delete.cshtml" />
+    <Content Include="Views\RHUt07_paciente\Details.cshtml" />
+    <Content Include="Views\RHUt07_paciente\Edit.cshtml" />
+    <Content Include="Views\RHUt07_paciente\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

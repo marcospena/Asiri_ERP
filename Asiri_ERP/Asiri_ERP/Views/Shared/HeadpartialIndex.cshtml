@@ -1,0 +1,58 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <!--CODIGO MODIFICAR-->
+        <div class="card">
+            <!--CONTAINER TITLE-->
+            @*<div-- class="container">
+                    <!--NOMBRE DE MANTENIMIENTO-->
+                    <h3 style="display:inline-block;" class="header-title"><i class="glyphicon glyphicon-cog">Nuevo</i></h3>
+                </div-->*@
+
+            <!--ACTIONS-->
+            <!---div class="card-title-w-btn "-->
+            <!--NEW PATIENT-->
+            @*<div class="bs-component">
+                        <div>
+                            <!--a class="btn btn-info icon-btn" href="create.html">
+                                <i class="fa fa-fw fa-lg fa-user-plus"></i>Nuevo Paciente
+                            </a-->
+                            Html.ActionLink("Nuevo", "Create", null, new { @class= "fa fa-user-plus btn btn-info  " })
+                        </div>
+                    </div>
+                    <!--EXPORT-->
+                    <div class="btn-group">
+                        <a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-fw fa-lg fa-cloud-download">
+                            </i>Exportar <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">PDF</a></li>
+                            <li><a href="#">Excel</a></li>
+                            <li><a href="#">Otro</a></li>
+                        </ul>
+                    </div>
+                <!------div--> *@
+
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.ActionLink("Nuevo", "Create", null, new { @class = "fa fa-user-plus btn btn-info  " })
+                </div>
+                <div class="col-md-6" style="text-align: right;">
+                    <div class="btn-group">
+                        <a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-fw fa-lg fa-cloud-download">
+                            </i>Exportar <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">PDF</a></li>
+                            <li><a href="#">Excel</a></li>
+                            <li><a href="#">Otro</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
