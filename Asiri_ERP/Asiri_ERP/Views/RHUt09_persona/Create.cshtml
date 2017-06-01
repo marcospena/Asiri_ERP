@@ -175,6 +175,20 @@
                                                             </div>
                                                         </div>
 
+                                                        <!--DEPARTAMENTO-->
+                                                        <div class="form-group">
+                                                            @Html.Label("lblRegion", "idRegion", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idRegion", ViewData["dptos"] as List<SelectListItem>, "--Seleccionar--", htmlAttributes: new { @class = "btn btn-warning dropdown-toggle" })
+                                                            </div>
+                                                        </div>
+                                                        <!--PROVINCIA-->
+                                                        <div class="form-group">
+                                                            @Html.Label("lblProvincia", "Provincia :", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idProvincia", new SelectList(String.Empty, "Value", "Text"), htmlAttributes: new { @class = "btn btn-warning dropdown-toggle" })
+                                                            </div>
+                                                        </div>
                                                         <!--DISTRITO-->
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.idDistrito, "idDistrito", htmlAttributes: new { @class = "control-label col-md-3" })
@@ -539,7 +553,7 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    
+
     function submitAction(element){
         $(Document).ready(function(){
             $("#form-persona1").submit(function () {
@@ -615,3 +629,24 @@
     }
 
 *@
+
+
+<script id="idRegion">
+    $(document).ready(function () {
+        $('#idRegion').change(function () {
+            //btns_validar_Departamento();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetProvincia")',
+                data: { idRegion: $("#idRegion").val() },
+                success: function (data) {
+                    $("#idProvincia").empty();
+                    $.each(data, function (i) {
+                        $("#idProvincia").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                        //console.log("Provincia : " + data[i].Value + " " + data[i].Text);
+                    });
+                }
+            });
+        });
+    });
+</script>

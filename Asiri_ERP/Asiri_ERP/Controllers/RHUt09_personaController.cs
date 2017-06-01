@@ -36,16 +36,40 @@ namespace Asiri_ERP.Controllers
             return View(rHUt09_persona);
         }
 
+
+
         // GET: RHUt09_persona/Create
         public ActionResult Create()
         {
             ViewBag.idEstadoCivil = new SelectList(db.RHUt05_estadoCivil, "idEstadoCivil", "descEstadoCivil");
-            //ViewBag.idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
+            ViewBag.idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
+
+            //SELECT REGION
+            ViewBag.idRegion = new SelectList(db.UBIt03_region, "idRegion", "nombreRegion");
+            //SELECT PROVINCIA
+            //ViewBag.idProvincia = new SelectList(db.UBIt02_provincia, "idProvincia", "nombreProvincia");
+            List<SelectListItem> provs = new List<SelectListItem>();
+            provs.Add(new SelectListItem { Text = "--Seleccionar--", Value = "0" });
+            ViewBag.idProvincia = provs;
+            //SELECT DISTRITO
             ViewBag.idDistrito = new SelectList(db.UBIt01_distrito, "idDistrito", "nombreDistrito");
+            List<SelectListItem> list_dists = new List<SelectListItem>();
+            list_dists.Add(new SelectListItem { Text = "--Seleccionar--", Value = "0" });
+            ViewBag.idDistrito = list_dists;
+
             ViewBag.idVia = new SelectList(db.UBIt04_via, "idVia", "descVia");
             ViewBag.idZona = new SelectList(db.UBIt05_zona, "idZona", "descZona");
             return View();
         }
+
+        public JsonResult GetProvincia(int idRegion)
+        {
+            var idProvincia = new SelectList(db.UBIt02_provincia.Where(p => p.idRegion == idRegion), "idProvincia", "nombreProvincia");
+            return Json(new SelectList(idProvincia, "Value", "Text"));
+        }
+
+
+
 
         // POST: RHUt09_persona/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
