@@ -21,6 +21,29 @@ namespace Asiri_ERP.Controllers
             return View(cLlt05_cita.ToList());
         }
 
+        public ActionResult IndexDoctor()
+        {
+            var cLlt05_cita = db.CLlt05_cita.Where(x => x.idEmpleado == 2 && x.idEstadoCita == 1 && x.fecCita == DateTime.Today).Include(c => c.CLlt09_estadoCita).Include(c => c.RHUt01_empleado).Include(c => c.RHUt07_paciente);
+            return View(cLlt05_cita.ToList());
+        }
+
+        //Mandar lista al calendario
+        public JsonResult ListarCitasCalendar()
+        {
+            
+            var listaCita = from e in db.CLlt05_cita
+                            select new
+                            {
+                                id = e.idCita,
+                                title = e.codCita,
+                                start = e.fecCita + "T" + e.horaInicio + ":00",
+                                end = e.fecCita + "T17:00:00",
+                                allday = false
+                            };
+            var filas = listaCita.ToArray();
+            return Json(filas, JsonRequestBehavior.AllowGet);
+        }
+
         //Busca el paciente por numero documento
         public ActionResult BuscarPacientePorND(string numeroDocumento)
         {

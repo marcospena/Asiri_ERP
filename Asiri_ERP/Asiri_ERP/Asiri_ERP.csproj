@@ -196,14 +196,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CLlt03_atencionController.cs" />
     <Compile Include="Controllers\CLlt05_citaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RHUt07_pacienteController.cs" />
-    <Compile Include="Controllers\RHUt09_personaController.cs" />
+    <Compile Include="Controllers\RHUt13_tipoEspecialidadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706031644478_pathArchivofield.cs" />
+    <Compile Include="Migrations\201706031644478_pathArchivofield.Designer.cs">
+      <DependentUpon>201706031644478_pathArchivofield.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -213,31 +218,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\animate.css" />
-    <Content Include="Content\css\animate.min.css" />
-    <Content Include="Content\css\bootstrap-theme.css" />
-    <Content Include="Content\css\bootstrap-theme.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\font-awesome.css" />
-    <Content Include="Content\css\font-awesome.min.css" />
-    <Content Include="Content\css\hstyle.css" />
     <Content Include="Content\css\main.css" />
-    <Content Include="Content\css\tabs.css" />
-    <Content Include="Content\DataTables\css\cliente.css" />
-    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
-    <Content Include="Content\DataTables\css\dataTables.editor.css" />
-    <Content Include="Content\DataTables\images\details_close.png" />
-    <Content Include="Content\DataTables\images\details_open.png" />
-    <Content Include="Content\DataTables\images\sort_asc.png" />
-    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
-    <Content Include="Content\DataTables\images\sort_both.png" />
-    <Content Include="Content\DataTables\images\sort_desc.png" />
-    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
-    <Content Include="Content\DataTables\swf\flashExport.swf" />
-    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fullcalendar.css" />
-    <Content Include="Content\img\images.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -247,19 +229,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\css\bootstrap-theme.css.map" />
-    <Content Include="Content\css\bootstrap.css.map" />
-    <Content Include="Content\css\main.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
-    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
-    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
-    <Content Include="Scripts\DataTables\Part5Controller.js" />
     <Content Include="Scripts\essential-plugins.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\hstyle.js" />
@@ -267,7 +237,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -357,14 +326,13 @@
     <Content Include="Scripts\locale\zh-cn.js" />
     <Content Include="Scripts\locale\zh-tw.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\other\bootstrap.min.js" />
-    <Content Include="Scripts\other\essential-plugins.js" />
-    <Content Include="Scripts\other\hstyle.js" />
-    <Content Include="Scripts\other\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\other\jquery.form.min.js" />
-    <Content Include="Scripts\other\main.js" />
-    <Content Include="Scripts\other\wow.min.js" />
     <Content Include="Scripts\plugins\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\plugins\bootstrap-notify.min.js" />
     <Content Include="Scripts\plugins\chart.js" />
@@ -423,20 +391,17 @@
     <Content Include="Views\CLlt05_cita\Edit.cshtml" />
     <Content Include="Views\CLlt05_cita\Index.cshtml" />
     <Content Include="Views\CLlt05_cita\Calendario.cshtml" />
-    <Content Include="Views\RHUt09_persona\Create.cshtml" />
-    <Content Include="Views\RHUt09_persona\Delete.cshtml" />
-    <Content Include="Views\RHUt09_persona\Details.cshtml" />
-    <Content Include="Views\RHUt09_persona\Edit.cshtml" />
-    <Content Include="Views\RHUt09_persona\Index.cshtml" />
-    <Content Include="Views\RHUt09_persona\RHUt07_paciente\_Create.cshtml" />
-    <Content Include="Views\Shared\StarttabsCreate.cshtml" />
-    <Content Include="Views\Shared\StartconfirmationCreate.cshtml" />
-    <Content Include="Views\Shared\HeadpartialIndex.cshtml" />
-    <Content Include="Views\RHUt07_paciente\Create.cshtml" />
-    <Content Include="Views\RHUt07_paciente\Delete.cshtml" />
-    <Content Include="Views\RHUt07_paciente\Details.cshtml" />
-    <Content Include="Views\RHUt07_paciente\Edit.cshtml" />
-    <Content Include="Views\RHUt07_paciente\Index.cshtml" />
+    <Content Include="Views\RHUt13_tipoEspecialidad\Create.cshtml" />
+    <Content Include="Views\RHUt13_tipoEspecialidad\Delete.cshtml" />
+    <Content Include="Views\RHUt13_tipoEspecialidad\Details.cshtml" />
+    <Content Include="Views\RHUt13_tipoEspecialidad\Edit.cshtml" />
+    <Content Include="Views\RHUt13_tipoEspecialidad\Index.cshtml" />
+    <Content Include="Views\CLlt03_atencion\Create.cshtml" />
+    <Content Include="Views\CLlt03_atencion\Delete.cshtml" />
+    <Content Include="Views\CLlt03_atencion\Details.cshtml" />
+    <Content Include="Views\CLlt03_atencion\Edit.cshtml" />
+    <Content Include="Views\CLlt03_atencion\Index.cshtml" />
+    <Content Include="Views\CLlt05_cita\IndexDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -454,6 +419,11 @@
       <Project>{bca66284-81d2-46b9-9960-206725bdd971}</Project>
       <Name>MVC_BusinessEntity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706031644478_pathArchivofield.resx">
+      <DependentUpon>201706031644478_pathArchivofield.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

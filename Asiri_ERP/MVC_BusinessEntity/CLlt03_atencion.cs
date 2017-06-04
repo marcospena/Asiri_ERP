@@ -23,6 +23,16 @@ namespace MVC_BusinessEntity
             this.CLlt10_estudioCompl = new HashSet<CLlt10_estudioCompl>();
             this.CLlt08_diagnostico = new HashSet<CLlt08_diagnostico>();
             this.CLlt11_evolucion = new HashSet<CLlt11_evolucion>();
+            oListAtencion = new List<CLlt03_atencion>();
+            oListDiagnostico = new List<CLlt08_diagnostico>();
+            oListEstudioCompl = new List<CLlt10_estudioCompl>();
+            oListEvolucion = new List<CLlt11_evolucion>();
+            oListExamenFisico = new List<CLlt12_examenFisico>();
+            oFuncionVital = new CLlt13_funcionVital();
+            oListTratamiento = new List<CLlt16_tratamiento>();
+            oAnamnesis = new CLIt01_anamnesis();
+            oPaciente = new RHUt07_paciente();
+            oDiagnostico = new MVC_BusinessEntity.CLlt08_diagnostico();
         }
     
         public long idAtencion { get; set; }
@@ -30,7 +40,19 @@ namespace MVC_BusinessEntity
         public System.DateTime fecRegistro { get; set; }
         public long idUsuario { get; set; }
         public Nullable<long> idCita { get; set; }
-    
+        public List<CLlt03_atencion> oListAtencion { get; set; }
+        public List<CLlt11_evolucion> oListEvolucion { get; set; }
+        public List<CLlt08_diagnostico> oListDiagnostico { get; set; }
+        public List<CLlt16_tratamiento> oListTratamiento { get; set; }
+        public CLIt01_anamnesis oAnamnesis { get; set; }
+        public List<CLlt10_estudioCompl> oListEstudioCompl { get; set; }
+        public CLlt13_funcionVital oFuncionVital { get; set; }
+        public List<CLlt12_examenFisico> oListExamenFisico { get; set; }
+
+        public RHUt07_paciente oPaciente { get; set; }
+
+        public CLlt08_diagnostico oDiagnostico { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIt01_anamnesis> CLIt01_anamnesis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

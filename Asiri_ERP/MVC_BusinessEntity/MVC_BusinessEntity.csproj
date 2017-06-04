@@ -117,7 +117,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbAsiri_ERP.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ModelsValidation\RHUt09_personaVal.cs" />
     <Compile Include="MSTt01_medioDePago.cs">
       <DependentUpon>dbAsiri_ERP.tt</DependentUpon>
     </Compile>

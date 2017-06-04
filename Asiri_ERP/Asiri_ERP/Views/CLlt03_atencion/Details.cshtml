@@ -1,0 +1,58 @@
+﻿@model MVC_BusinessEntity.CLlt03_atencion
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>CLlt03_atencion</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.codAtencion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.codAtencion)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.fecRegistro)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.fecRegistro)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.idUsuario)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.idUsuario)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CLlt05_cita.codCita)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CLlt05_cita.codCita)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.idAtencion }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -1,0 +1,626 @@
+﻿@model MVC_BusinessEntity.CLlt03_atencion
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tableDiagnostico').dataTable({
+
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+
+            $('#tableTratamiento').dataTable({
+
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+
+            $('#tableEvolucion').dataTable({
+
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+
+            $('#tableEstudioCompl').dataTable({
+
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+
+            $('#tableExamenFisico').dataTable({
+
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+
+        });
+
+        //Agregar Tabla Diagnostico y Tratamiento
+        function AgregarDiagnosticoTratamiento()
+        {
+            var comboCie10 = document.getElementById("idCie10");
+            var indice = comboCie10.selectedIndex;
+            var nombreCi10= comboCie10.options[comboCie10.selectedIndex].text;
+
+            $("#tableDiagnostico").dataTable().fnAddData([$("#idCie10").val(),
+                                                      nombreCi10,
+                                                      $("#descDiagnostico").val()]);
+            //var tablaDiagnostico = $("#tableDiagnostico").dataTable().fnGetData();
+            
+            //var i = tablaDiagnostico.length;
+            
+            //Cie10
+            //var inputCie10 = document.createElement('input');
+            //inputCie10.setAttribute('type', 'hidden');
+            //inputCie10.id = "Cie10" + i;
+            //inputCie10.name = "CLlt03_atencion.oListDiagnostico[" + [i - 1] + "].idCie10";
+            //document.getElementById("diag").appendChild(inputCie10);
+            ////Diagnostico
+            //var inputDiag = document.createElement('input');
+            //inputDiag.setAttribute('type', 'hidden');
+            //inputDiag.id = "Diagnostico" + i;
+            //inputDiag.name = "CLlt03_atencion.oListDiagnostico[" + [i - 1] + "].descDiagnostico";
+            //document.getElementById("diag").appendChild(inputDiag);
+
+            ////Enviar valor
+            //$("#Cie10"+i).val($("#idCie10").val());
+            //$("#Diagnostico" + i).val($("#descDiagnostico").val());
+            
+           
+            
+            $("#tableTratamiento").dataTable().fnAddData([
+                                                      $("#descTratamiento").val()]);
+
+
+            comboCie10.selectedIndex = 0;
+            $("#descDiagnostico").val("");
+            $("#descTratamiento").val("");
+        }
+
+        
+        function AgregarEvolucion() {
+
+            $("#tableEvolucion").dataTable().fnAddData([
+                                                      $("#descEvolucion").val(),
+                                                      "condicion"]);
+
+
+            $("#descEvolucion").val("");
+        }
+
+        function AgregarEstudioCompl() {
+
+            $("#tableEstudioCompl").dataTable().fnAddData([
+                                                      $("#descEstudioCompl").val()]);
+
+
+            $("#descEstudioCompl").val("");
+        }
+
+        function AgregarExamenFisico() {
+
+            $("#tableExamenFisico").dataTable().fnAddData([
+                                                      $("#descExamenFisico").val()]
+                                                      );
+
+
+            $("#descExamenFisico").val("");
+        }
+
+
+        //ENVIAR ATENCION A CONTROLLER
+        function EnviarAtencion()
+        {
+            var Atencion = { "codAtencion": "", "idCita": "", "oListEvolucion": [], "oListDiagnostico": [], "oAnamnesis": { "descAnamnesis": "" }, "oListTratamiento": [], "oListEstudioCompl": [], "oFuncionVital": { "sistole": "", "diastole": "", "pulsasion": "", "ritmoRespiratorio": "", "temperatura": "", "altura": "", "peso": "", "imc": "" }, "oListExamenFisico": [] };
+            var Evolucion = { "descEvolucion": "" };
+            var Diagnostico = { "idCie10": "", "descDiagnostico": "" };
+            var Tratamiento = { "descTratamiento": "" };
+            var EstudioCompl = { "descEstudioCompl": "" };
+            
+            var ExamenFisico = { "descExamenFisico": "" };
+
+            //Atencion
+            Atencion.codAtencion = $("#codAtencion").val();
+            Atencion.idCita = $("#idCita").val();
+
+            //Anamnesis
+            Atencion.oAnamnesis.descAnamnesis = $("#descAnamnesis").val();
+
+            //Diagnostico
+            var tablaDiagnostico = $("#tableDiagnostico").dataTable().fnGetData();
+
+            for (var i = 0; i < tablaDiagnostico.length; i++) {
+
+                Diagnostico.idCie10 = tablaDiagnostico[i][0];
+                Diagnostico.descDiagnostico = tablaDiagnostico[i][2];
+                Atencion.oListDiagnostico.push(Diagnostico);
+                Diagnostico = { "idCie10": "", "descDiagnostico": "" };
+            }
+
+            //Tratamiento
+            var tablaTratamiento = $("#tableTratamiento").dataTable().fnGetData();
+
+            for (var i = 0; i < tablaTratamiento.length; i++) {
+
+                Tratamiento.descTratamiento = tablaTratamiento[i][0];
+                Atencion.oListTratamiento.push(Tratamiento);
+                Tratamiento = { "descTratamiento": "" };
+            }
+
+
+            //Evolucion
+            var tablaEvolucion = $("#tableEvolucion").dataTable().fnGetData();
+
+            for (var i = 0; i < tablaEvolucion.length; i++) {
+
+                Evolucion.descEvolucion = tablaEvolucion[i][0];
+                Atencion.oListEvolucion.push(Evolucion);
+                Evolucion = { "descEvolucion": "" };
+            }
+
+            //Estudio Complementario
+
+            var tablaEstudioCompl = $("#tableEstudioCompl").dataTable().fnGetData();
+
+            for (var i = 0; i < tablaEvolucion.length; i++) {
+
+                EstudioCompl.descEstudioCompl = tablaEstudioCompl[i][0];
+                Atencion.oListEstudioCompl.push(EstudioCompl);
+                EstudioCompl = { "descEstudioCompl": "" };
+            }
+
+            //Funcion Vital
+            Atencion.oFuncionVital.sistole = $("#sistole").val();
+            Atencion.oFuncionVital.diastole = $("#diastole").val();
+            Atencion.oFuncionVital.pulsasion = $("#pulsasion").val();
+            Atencion.oFuncionVital.ritmoRespiratorio = $("#ritmoRespiratorio").val();
+            Atencion.oFuncionVital.temperatura = $("#temperatura").val();
+            Atencion.oFuncionVital.altura = $("#altura").val();
+            Atencion.oFuncionVital.peso = $("#peso").val();
+            Atencion.oFuncionVital.imc = $("#imc").val();
+
+            //Examen Fisico
+            var tablaExamenFisico = $("#tableExamenFisico").dataTable().fnGetData();
+
+            for (var i = 0; i < tablaExamenFisico.length; i++) {
+
+                ExamenFisico.descExamenFisico = tablaExamenFisico[i][0];
+                Atencion.oListExamenFisico.push(ExamenFisico);
+                ExamenFisico = { "descExamenFisico": "" };
+            }
+            
+
+            $.ajax(
+            {
+                url: '/CLlt03_atencion/CreateAtencion',
+                data: JSON.stringify({ 'cLlt03_atencion': Atencion}),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        window.location.href = "/CLlt03_atencion/Index";
+                    }
+                    else {
+                        alert(result.ex);
+                    }
+                }
+            });
+        }
+
+        function dale()
+        {
+            
+            for (var i = 0; i >= 0; i++) {
+                var t = $("#tratamiento" + [i + 1]).length
+                if (t == 0) {
+                    t = i;
+                    alert(t);
+                    break;
+                }
+                
+            }
+            
+        }
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>CLlt03_atencion</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.codAtencion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor( model => model.codAtencion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    <input type="button" onclick="dale()" value="dale"/>
+                    <div id="tratamientodtl1">
+                        <table id="tratamiento1"></table>
+                        <table id="tratamiento2"></table>
+                        <table id="tratamiento3"></table>
+                        <table id="tratamiento4"></table>
+                        <table id="tratamiento5"></table>
+                        <table id="tratamiento6"></table>
+                    </div>
+                </div>
+            </div>
+            @*INFORMACION BASICA  *@
+            <div class="form-group">
+                @Html.Label("paciente", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("paciente", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("numDocumento", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("numDocumento", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("numHistoria", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("numHistoria", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+            </div>
+            @* DATOS PARA CONTROLLER *@
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.idUsuario)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.idCita)
+                </div>
+            </div>
+            @* Anamnesis *@
+            <div class="form-group">
+                @Html.Label("Anamnesis", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oAnamnesis.descAnamnesis, new { htmlAttributes = new { @class = "form-control", @id= "descAnamnesis"} })
+                </div>
+            </div>
+            @* Diagnostico // Tratamiento *@
+            <div class="form-group">
+                @Html.Label("idCie10", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("idCie10", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("descDiagnostico", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("descDiagnostico", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("descTratamiento", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("descTratamiento", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <input type="button" value="Agregar Diagonstico y Tratamiento" onclick="AgregarDiagnosticoTratamiento()" />
+
+            <table id="tableDiagnostico">
+                <thead>
+                    <tr>
+                        <th>ID Cie10</th>
+                        <th>Cie10</th>
+                        <th>Diagnostico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.oListDiagnostico)
+                        {
+                            <tr>
+                                <td>@Html.DisplayTextFor(i => item.idCie10) </td>
+                                <td>@Html.DisplayTextFor(i => item.descDiagnostico)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+                
+            <table id="tableTratamiento">
+                <thead>
+                    <tr>
+                        <th>Tratamiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.oListTratamiento)
+                        {
+                            <tr>
+                                <td>@Html.DisplayTextFor(i => item.descTratamiento)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            @* Evolucion *@
+            <div class="form-group">
+                @Html.Label("descEvolucion", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("descEvolucion", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <input type="button" value="Agregar Evolucion" onclick="AgregarEvolucion()" />
+
+            <table id="tableEvolucion">
+                <thead>
+                    <tr>
+                        <th>Evolucion</th>
+                        <th>Condicion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.oListEvolucion)
+                        {
+                            <tr>
+                                <td>@Html.DisplayTextFor(i => item.descEvolucion)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            @* Estudio Complementario *@
+
+            <div class="form-group">
+                @Html.Label("descEstudioCompl", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("descEstudioCompl", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <input type="button" value="Agregar Estudio Complementario" onclick="AgregarEstudioCompl()" />
+
+            <table id="tableEstudioCompl">
+                <thead>
+                    <tr>
+                        <th>Estudio Complementario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.oListEstudioCompl)
+                        {
+                            <tr>
+                                <td>@Html.DisplayTextFor(i => item.descEstudioCompl)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            @* Funcion Vital *@
+
+            <div class="form-group">
+                @Html.Label("Sistole", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.sistole, new { htmlAttributes = new { @class = "form-control", @id = "sistole" } })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.Label("Diastole", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.diastole, new { htmlAttributes = new { @class = "form-control", @id = "diastole" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Pulsasion", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.pulsacion, new { htmlAttributes = new { @class = "form-control", @id = "pulsacion" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("RitmoRespiratorio", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.ritmoRespiratorio, new { htmlAttributes = new { @class = "form-control", @id = "ritmoRespiratorio" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Temperatura", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.temperatura, new { htmlAttributes = new { @class = "form-control", @id = "temperatura" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Altura", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.altura, new { htmlAttributes = new { @class = "form-control", @id = "altura" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Peso", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.peso, new { htmlAttributes = new { @class = "form-control", @id = "peso" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("IMC", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.oFuncionVital.imc, new { htmlAttributes = new { @class = "form-control", @id = "imc" } })
+                </div>
+            </div>
+
+            @* Examen Fisico *@
+
+            <div class="form-group">
+                @Html.Label("descExamenFisico", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("descExamenFisico", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <input type="button" value="Agregar Examen Fisico" onclick="AgregarExamenFisico()" />
+
+            <table id="tableExamenFisico">
+                <thead>
+                    <tr>
+                        <th>Examen Fisico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.oListExamenFisico)
+                        {
+                            <tr>
+                                <td>@Html.DisplayTextFor(i => item.descExamenFisico)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Create" onclick="EnviarAtencion()" class="btn btn-default"/>
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

@@ -4,6 +4,7 @@
     Layout = null;
 }
 
+
 <!DOCTYPE html>
 
 <html>
@@ -38,57 +39,6 @@
             float: right;
         }
     </style>
-
-    <script>
-        $(document).ready(function () {
-
-            // page is now ready, initialize the calendar...
-
-            $('#calendar').fullCalendar({
-                locale: 'es',
-                firstDay: 1,
-                columnFormat: 'dddd, D  MMMM YYYY',
-                header: {
-                    left: '',
-                    center: 'prev    next',
-                    right: ''
-                },
-                slotEventOverlap: false,
-                slotLabelFormat: 'h(:mm)a',
-                minTime: '08:00:00',
-                maxTime: '20:00:00',
-                customButtons: {
-                    buttonFecha: {
-                        text: '8 AM - 10 PM',
-                        click: function () {
-                            alert('clicked the custom button!');
-                        }
-                    }
-                },
-                allDaySlot: false,
-                slotDuration: '00:30:00',
-                height: 'auto',
-                defaultView: 'AgendaFiveDay',
-                views: {
-                    AgendaFiveDay: {
-                        type: 'agenda',
-                        duration: { days: 5 },
-                        buttonText: '5 days'
-                    }
-                },
-                events: [
-                        {
-                            title: 'hola',
-                            start: '2017-05-30T11:30:00',
-                            end: '2017-05-30T12:30:00'
-
-                        }
-                ]
-            });
-
-
-        });
-    </script>
 </head>
 <body class="sidebar-mini fixed">
     <div class="wrapper">
@@ -254,13 +204,11 @@
                                 <thead style="color:#ffffff;background:#0094ff;">
                                     <tr>
                                         <th>Código</th>
-                                        <th>Fecha</th>
-                                        <th>Fecha de Registro</th>
+                                        <th>Paciente</th>
                                         <th>Hora de Inicio</th>
-                                        <th>Duración</th>
                                         <th>Online</th>
                                         <th>Estado</th>
-                                        <th>Detalle</th>
+                                        <th>Atender</th>
                                         <th>Editar</th>
                                         <th>Cancelar</th>
                                     </tr>
@@ -273,16 +221,10 @@
                                                 @Html.DisplayFor(modelItem => item.codCita)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.fecCita)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.fecRegistro)
+                                                @Html.DisplayFor(modelItem => item.RHUt07_paciente.RHUt09_persona.apellidoPaterno)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.horaInicio)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.duracionEstimada)
                                             </td>
                                             <td>
                                                 <!--<i class="fa fa-lg fa-square-o"></i-->
@@ -304,7 +246,7 @@
                                             <td>
                                                 <div class="col-md-12">
 
-                                                    <a class="btn btn-default btn-flat" href="~/Cita/Details/@item.idCita"><i class="fa fa-lg fa-plus"></i></a>
+                                                    <a class="btn btn-default btn-flat" href="~/CLlt03_atencion/Create/@item.idCita"><i class="fa fa-lg fa-plus"></i></a>
                                                 </div>
                                             </td>
                                             <td>
@@ -382,4 +324,3 @@
     </script>
 </body>
 </html>
-
