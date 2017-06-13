@@ -18,11 +18,14 @@ namespace MVC_BusinessEntity
         public CLlt16_tratamiento()
         {
             this.CLlt17_tratamientoDtl = new HashSet<CLlt17_tratamientoDtl>();
+            oListTratamientoDtl = new List<CLlt17_tratamientoDtl>();
         }
     
         public long idTratamiento { get; set; }
         public string descTratamiento { get; set; }
         public Nullable<long> idDiagnostico { get; set; }
+
+        public List<CLlt17_tratamientoDtl> oListTratamientoDtl { get; set; }
     
         public virtual CLlt08_diagnostico CLlt08_diagnostico { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

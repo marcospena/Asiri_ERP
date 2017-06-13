@@ -10,7 +10,7 @@
 
 //ADD
 using System.ComponentModel.DataAnnotations;
-using MVC_BusinessEntity.Models;
+
 //
 
 namespace MVC_BusinessEntity
@@ -19,7 +19,7 @@ namespace MVC_BusinessEntity
     using System.Collections.Generic;
 
     //ADD
-    [MetadataType(typeof(RHUt09_personaVal))]
+    [MetadataType(typeof(RHUt09_persona))]
     //
 
     public partial class RHUt09_persona

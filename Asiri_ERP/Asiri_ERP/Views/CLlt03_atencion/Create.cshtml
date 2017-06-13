@@ -13,10 +13,70 @@
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="~/Scripts/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/Scripts/plugins/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/essential-plugins.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/plugins/pace.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/tabs.css" rel="stylesheet" />
+    <style>
+        .borde1 {
+            border: 1px #000 solid;
+            text-align: center;
+        }
+
+        .borde {
+            border: 1px #000fff solid;
+        }
+
+        .borde2 {
+            border: 1px #295ba7 solid;
+            text-align: center;
+        }
+
+        .action {
+            float: right;
+        }
+
+        
+    </style>
     <script type="text/javascript">
+        (function ($) {
+
+            'use strict';
+
+            $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function (e) {
+                var $target = $(e.target);
+                var $tabs = $target.closest('.nav-tabs-responsive');
+                var $current = $target.closest('li');
+                var $parent = $current.closest('li.dropdown');
+                $current = $parent.length > 0 ? $parent : $current;
+                var $next = $current.next();
+                var $prev = $current.prev();
+                var updateDropdownMenu = function ($el, position) {
+                    $el
+                      .find('.dropdown-menu')
+                      .removeClass('pull-xs-left pull-xs-center pull-xs-right')
+                      .addClass('pull-xs-' + position);
+                };
+
+                $tabs.find('>li').removeClass('next prev');
+                $prev.addClass('prev');
+                $next.addClass('next');
+
+                updateDropdownMenu($prev, 'left');
+                updateDropdownMenu($current, 'center');
+                updateDropdownMenu($next, 'right');
+            });
+
+        })(jQuery);
+
+
+
         $(document).ready(function () {
-            $('#tableDiagnostico').dataTable({
 
+            $('table').dataTable({
+                ordering: false,
                 language: {
                     processing: "En curso...",
                     search: "Buscar:",
@@ -41,149 +101,113 @@
                 }
             });
 
-            $('#tableTratamiento').dataTable({
-
-                language: {
-                    processing: "En curso...",
-                    search: "Buscar:",
-                    lengthMenu: "Visualizar _MENU_ registros",
-                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                    infoEmpty: "0 registros encontrados",
-                    infoFiltered: "(_MAX_ registros filtrados en total)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando registros...",
-                    zeroRecords: "No hay registros",
-                    emptyTable: "Vacío",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Previo  ",
-                        next: "  Siguiente",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                    }
-                }
-            });
-
-            $('#tableEvolucion').dataTable({
-
-                language: {
-                    processing: "En curso...",
-                    search: "Buscar:",
-                    lengthMenu: "Visualizar _MENU_ registros",
-                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                    infoEmpty: "0 registros encontrados",
-                    infoFiltered: "(_MAX_ registros filtrados en total)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando registros...",
-                    zeroRecords: "No hay registros",
-                    emptyTable: "Vacío",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Previo  ",
-                        next: "  Siguiente",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                    }
-                }
-            });
-
-            $('#tableEstudioCompl').dataTable({
-
-                language: {
-                    processing: "En curso...",
-                    search: "Buscar:",
-                    lengthMenu: "Visualizar _MENU_ registros",
-                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                    infoEmpty: "0 registros encontrados",
-                    infoFiltered: "(_MAX_ registros filtrados en total)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando registros...",
-                    zeroRecords: "No hay registros",
-                    emptyTable: "Vacío",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Previo  ",
-                        next: "  Siguiente",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                    }
-                }
-            });
-
-            $('#tableExamenFisico').dataTable({
-
-                language: {
-                    processing: "En curso...",
-                    search: "Buscar:",
-                    lengthMenu: "Visualizar _MENU_ registros",
-                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                    infoEmpty: "0 registros encontrados",
-                    infoFiltered: "(_MAX_ registros filtrados en total)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando registros...",
-                    zeroRecords: "No hay registros",
-                    emptyTable: "Vacío",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Previo  ",
-                        next: "  Siguiente",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                    }
-                }
-            });
+            
 
         });
+
+        function AbrirTratamiento()
+        {
+            var numTabla = 0;
+            for (var i = 0; i >= 0; i++) {
+                var t = $("#tableTratamiento" + [i + 1]).length
+                if (t == 0) {
+                    t = i;
+                    numTabla = t;
+                    break;
+                }
+
+            }
+            $("#" + numTabla).hide();
+            var div = document.createElement('div');
+            div.id = [numTabla + 1];
+            div.innerHTML = "<table id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th></tr></thead><tbody></tbody></table>";
+            
+
+            document.getElementById("tratamiento").appendChild(div);
+            $('#tableTratamiento' + [numTabla + 1]).dataTable({
+                ordering: false,
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+        }
+
+
+        function AgregarTratamiento()
+        {
+            var numTabla = 0;
+            for (var i = 0; i >= 0; i++) {
+                var t = $("#tableTratamiento" + [i + 1]).length
+                if (t == 0) {
+                    t = i;
+                    numTabla = t;
+                    break;
+                }
+
+            }
+            var comboServicio = document.getElementById("idServicio");
+            var indiceS = comboServicio.selectedIndex;
+            var nombreServicio = comboServicio.options[comboServicio.selectedIndex].text;
+            var comboProducto = document.getElementById("idProducto");
+            var indiceP = comboProducto.selectedIndex;
+            var nombreProducto = comboProducto.options[comboProducto.selectedIndex].text;
+            $("#tableTratamiento" + numTabla).dataTable().fnAddData([$("#indicacionServicio").val(),
+                                                          $("#idServicio").val(),
+                                                          nombreServicio,
+                                                          $("#idProducto").val(),
+                                                          nombreProducto]);
+
+            $("#indicacionServicio").val("");
+            comboServicio.selectedIndex = 0;
+            comboProducto.selectedIndex = 0;
+        }
+
 
         //Agregar Tabla Diagnostico y Tratamiento
         function AgregarDiagnosticoTratamiento()
         {
+            var numTabla = 0;
+            for (var i = 0; i >= 0; i++) {
+                var t = $("#tableTratamiento" + [i + 1]).length
+                if (t == 0) {
+                    t = i;
+                    numTabla = t;
+                    break;
+                }
+
+            }
             var comboCie10 = document.getElementById("idCie10");
             var indice = comboCie10.selectedIndex;
-            var nombreCi10= comboCie10.options[comboCie10.selectedIndex].text;
+            var nombreCi10 = comboCie10.options[comboCie10.selectedIndex].text;
+            
+            var numTablaTrat = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
 
             $("#tableDiagnostico").dataTable().fnAddData([$("#idCie10").val(),
                                                       nombreCi10,
-                                                      $("#descDiagnostico").val()]);
-            //var tablaDiagnostico = $("#tableDiagnostico").dataTable().fnGetData();
+                                                      $("#descDiagnostico").val(),
+                                                      $("#descTratamiento").val(),
+                                                      numTablaTrat.length]);
             
-            //var i = tablaDiagnostico.length;
             
-            //Cie10
-            //var inputCie10 = document.createElement('input');
-            //inputCie10.setAttribute('type', 'hidden');
-            //inputCie10.id = "Cie10" + i;
-            //inputCie10.name = "CLlt03_atencion.oListDiagnostico[" + [i - 1] + "].idCie10";
-            //document.getElementById("diag").appendChild(inputCie10);
-            ////Diagnostico
-            //var inputDiag = document.createElement('input');
-            //inputDiag.setAttribute('type', 'hidden');
-            //inputDiag.id = "Diagnostico" + i;
-            //inputDiag.name = "CLlt03_atencion.oListDiagnostico[" + [i - 1] + "].descDiagnostico";
-            //document.getElementById("diag").appendChild(inputDiag);
-
-            ////Enviar valor
-            //$("#Cie10"+i).val($("#idCie10").val());
-            //$("#Diagnostico" + i).val($("#descDiagnostico").val());
-            
-           
-            
-            $("#tableTratamiento").dataTable().fnAddData([
-                                                      $("#descTratamiento").val()]);
-
-
             comboCie10.selectedIndex = 0;
             $("#descDiagnostico").val("");
             $("#descTratamiento").val("");
@@ -223,10 +247,11 @@
         //ENVIAR ATENCION A CONTROLLER
         function EnviarAtencion()
         {
-            var Atencion = { "codAtencion": "", "idCita": "", "oListEvolucion": [], "oListDiagnostico": [], "oAnamnesis": { "descAnamnesis": "" }, "oListTratamiento": [], "oListEstudioCompl": [], "oFuncionVital": { "sistole": "", "diastole": "", "pulsasion": "", "ritmoRespiratorio": "", "temperatura": "", "altura": "", "peso": "", "imc": "" }, "oListExamenFisico": [] };
+            var Atencion = { "codAtencion": "", "idCita": "", "oListEvolucion": [], "oListDiagnostico": [], "oAnamnesis": { "descAnamnesis": "" }, "oListEstudioCompl": [], "oFuncionVital": { "sistole": "", "diastole": "", "pulsasion": "", "ritmoRespiratorio": "", "temperatura": "", "altura": "", "peso": "", "imc": "" }, "oListExamenFisico": [] };
             var Evolucion = { "descEvolucion": "" };
-            var Diagnostico = { "idCie10": "", "descDiagnostico": "" };
-            var Tratamiento = { "descTratamiento": "" };
+            var Diagnostico = { "idCie10": "", "descDiagnostico": "", "oListTratamiento": [] };
+            var Tratamiento = { "descTratamiento": "", "oListTratamientoDtl": [] };
+            var TratamientoDtl = { "indicacionServicio": "","idProducto": "", "idServicio": ""};
             var EstudioCompl = { "descEstudioCompl": "" };
             
             var ExamenFisico = { "descExamenFisico": "" };
@@ -245,8 +270,21 @@
 
                 Diagnostico.idCie10 = tablaDiagnostico[i][0];
                 Diagnostico.descDiagnostico = tablaDiagnostico[i][2];
+                Tratamiento.descTratamiento = tablaDiagnostico[i][3];
+                var tablaTratamiento = $("#tableTratamiento" + [i + 1]).dataTable().fnGetData();
+                for (var j = 0; j < tablaTratamiento.length; j++) {
+
+                    TratamientoDtl.indicacionServicio = tablaTratamiento[j][0];
+                    TratamientoDtl.idProducto = tablaTratamiento[j][1];
+                    TratamientoDtl.idServicio = tablaTratamiento[j][3];
+                    Tratamiento.oListTratamientoDtl.push(TratamientoDtl);
+                    TratamientoDtl = { "indicacionServicio": "", "idProducto": "", "idServicio": "" };
+                    
+                }
+                Diagnostico.oListTratamiento.push(Tratamiento);
+                Tratamiento = { "descTratamiento": "", "oListTratamientoDtl": [] };
                 Atencion.oListDiagnostico.push(Diagnostico);
-                Diagnostico = { "idCie10": "", "descDiagnostico": "" };
+                Diagnostico = { "idCie10": "", "descDiagnostico": "", "oListTratamiento": [] };
             }
 
             //Tratamiento
@@ -284,7 +322,7 @@
             //Funcion Vital
             Atencion.oFuncionVital.sistole = $("#sistole").val();
             Atencion.oFuncionVital.diastole = $("#diastole").val();
-            Atencion.oFuncionVital.pulsasion = $("#pulsasion").val();
+            Atencion.oFuncionVital.pulsasion = $("#pulsacion").val();
             Atencion.oFuncionVital.ritmoRespiratorio = $("#ritmoRespiratorio").val();
             Atencion.oFuncionVital.temperatura = $("#temperatura").val();
             Atencion.oFuncionVital.altura = $("#altura").val();
@@ -336,291 +374,752 @@
         }
     </script>
 </head>
-<body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>CLlt03_atencion</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.codAtencion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor( model => model.codAtencion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+<body class="sidebar-mini fixed">
 
-                    <input type="button" onclick="dale()" value="dale"/>
-                    <div id="tratamientodtl1">
-                        <table id="tratamiento1"></table>
-                        <table id="tratamiento2"></table>
-                        <table id="tratamiento3"></table>
-                        <table id="tratamiento4"></table>
-                        <table id="tratamiento5"></table>
-                        <table id="tratamiento6"></table>
+
+    <div class="wrapper">
+        <!-- Navbar-->
+        <header class="main-header hidden-print">
+            <a class="logo" href="../layout.html">CMD</a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button--><a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
+                <div class="navbar-custom-menu">
+                    <ul class="top-nav">
+                        <!--Notification Menu-->
+                        <li class="dropdown notification-menu">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell-o fa-lg"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="not-head">Tienes 4 nuevas notificaciones</li>
+                                <li>
+                                    <a class="media" href="javascript:;">
+                                        <span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                                        <div class="media-body"><span class="block">Mariel te ha enviado un mensaje</span><span class="text-muted block">Hace 2 minutos</span></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media" href="javascript:;">
+                                        <span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                                        <div class="media-body"><span class="block">El servidor no esta activo</span><span class="text-muted block">Hace 2 minutos</span></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media" href="javascript:;">
+                                        <span class="media-left media-icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
+                                        <div class="media-body"><span class="block">Transacción abc terminada</span><span class="text-muted block">Hace 2 minutos</span></div>
+                                    </a>
+                                </li>
+                                <li class="not-footer"><a href="#">Mirar todas las notificaciones</a></li>
+                            </ul>
+                        </li>
+                        <!-- User Menu-->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
+                            <ul class="dropdown-menu settings-menu">
+                                <li><a href="#"><i class="fa fa-cog fa-lg"></i> Opciones</a></li>
+                                <li><a href="#"><i class="fa fa-user fa-lg"></i> Perfil</a></li>
+                                <li><a href="#"><i class="fa fa-sign-out fa-lg"></i> Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+
+        <aside class="main-sidebar hidden-print">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left image"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image"></div>
+                    <div class="pull-left info">
+                        <p>JuanJ</p>
+                        <p class="designation">Juan Jose</p>
+                    </div>
+                </div>
+                <!-- Sidebar Menu-->
+                <ul class="sidebar-menu">
+                    <li class="treeview"><a href="../layout.html"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
+
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-users"></i><span> Mant. Usuario</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="../Usuario/index.html"><i class="fa fa-user"></i>Usuario</a></li>
+                            <li><a href="../Perfiles/index.html"><i class="fa fa-user"></i>Perfiles</a></li>
+                            <li><a href="../Rol/index.html"><i class="fa fa-user"></i>Roles</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-user"></i><span>Mant. Paciente</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="../Paciente/index.html"><i class="fa fa-user"></i>Paciente</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i>Historial</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-edit"></i><span>Citas</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="form-componants.html"><i class="fa fa-circle-o"></i>Registrar Cita</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-user"></i><span>Empleado</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i>Registrar Empleado</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i>Registrar Asistencia</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-file-text"></i><span>Servicios</span><i class="fa fa-angle-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Registrar Servicio</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+
+
+        <div class="content-wrapper">
+
+            <!--********************************TITULO*******************************-->
+
+            <div class="page-title">
+                <div>
+                    <h1><i class="fa fa-user"></i>Atención</h1>
+                    <p>Atención ...!</p>
+                </div>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><i class="fa fa-home fa-lg"></i></li>
+                        <li><a href="index.html">Index</a></li>
+                        <li>Atención</li>
+                    </ul>
+                </div>
+            </div>
+            <!--********************************FIN TITULO*******************************-->
+            <!--***************************AQUÍ VA EL CODIGO******************************-->
+
+
+            <div class="row">
+                <!--CODIGO MODIFICAR-->
+                <div class="col-lg-12">
+                    <div class="card col-lg-12">
+                        <!--*********************************************AQUÍ MODIFICAR CARD***************************-->
+                        <!--*********************************************CARD***************************-->
+                        <!--****CITA****-->
+                        <h3 class="card-title"></h3>
+
+                        <div class="" id="tabs">
+                            <div class="wrapper">
+                                <div class="container">
+                                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                                        <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+                                            <li role="presentation" class="active">
+                                                <a href="#tab1" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                                                    <span class="text">Inf. Atención</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation" class="next">
+                                                <a href="#tab2" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">
+                                                    <span class="text">Historia Clínica</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#tab3" role="tab" id="samsa-tab" data-toggle="tab" aria-controls="samsa">
+                                                    <span class="text">Inf. Función Vital</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#tab4" role="tab" id="samsa-tab" data-toggle="tab" aria-controls="samsa">
+                                                    <span class="text">Inf. Evolución</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#tab5" role="tab" id="samsa-tab" data-toggle="tab" aria-controls="samsa">
+                                                    <span class="text">Inf. Examen Físico</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#tab6" role="tab" id="samsa-tab" data-toggle="tab" aria-controls="samsa">
+                                                    <span class="text">Inf. Estudio Complementario</span>
+                                                </a>
+                                            </li>
+
+
+                                        </ul>
+
+                                        <div id="myTabContent" class="tab-content">
+                                            <!--INFOBASICA-->
+                                            <div role="tabpanel" class="tab-pane fade in active" id="tab1" aria-labelledby="home-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        <div class="card">
+
+                                                            <form>
+                                                                <h3>Inf. Básica</h3>
+                                                                <!--ASUNTO-->
+                                                                <div class="form-group">
+                                                                    <div class="col-md-5">
+                                                                        <label class="control-label">Código Atención</label>
+                                                                        @Html.EditorFor(model => model.codAtencion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @rows = "4" } })
+                                                                    </div>
+                                                                </div>
+                                                                <!--PACIENTE-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Paciente</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            @Html.Editor("paciente", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="col-md-5">
+                                                                        <label class="control-label">Número de Documento</label>
+                                                                        @Html.Editor("numDocumento", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Número de Historia</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            @Html.Editor("numHistoria", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                @* DATOS PARA CONTROLLER *@
+                                                                <div class="form-group">
+                                                                    <div class="col-md-10">
+                                                                        @Html.HiddenFor(model => model.idUsuario)
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+
+                                                                    <div class="col-md-10">
+                                                                        @Html.HiddenFor(model => model.idCita)
+                                                                    </div>
+                                                                </div>
+
+                                                                </br>
+                                                                </br>
+                                                                </br>
+                                                                </br>
+                                                                <!--Anamnesis-->
+                                                                
+                                                                <!--MEDICODETURNO-->
+
+
+                                                            </form>
+
+
+
+
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="card col-md-12">
+                                                            <h3 class="card-title">Inf. Anamnesis</h3>
+                                                            <div class="card-body">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <label class="control-label">Descripción</label>
+                                                                        @Html.EditorFor(model => model.oAnamnesis.descAnamnesis, new { htmlAttributes = new { @class = "form-control", @id = "descAnamnesis" } })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="card col-md-12">
+                                                            <div class="panel-body">
+
+
+                                                                <div class="card col-md-12">
+                                                                    <h3 class="card-title">Inf. Diagnostico </h3>
+                                                                    <div class="card-body">
+                                                                        <form class="form-horizontal">
+                                                                            
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="control-label col-md-2">CIE10</label>
+                                                                                <div class="col-md-12">
+                                                                                    @Html.DropDownList("idCie10", null, htmlAttributes: new { @class = "form-control" })
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="control-label col-md-3">Descripción</label>
+                                                                                <div class="col-md-12">
+                                                                                    @Html.Editor("descDiagnostico", new { htmlAttributes = new { @class = "form-control", @rows = "1" } })
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-10">
+                                                                                <label>Tratamiento</label>
+                                                                                @Html.Editor("descTratamiento", new { htmlAttributes = new { @class = "form-control", @id = "descTratamiento" } })
+                                                                            </div>
+                                                                            &nbsp;&nbsp;&nbsp;
+
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            &nbsp;&nbsp;&nbsp;
+                                                                            <div class="col-md-2">
+
+                                                                                <button id="AgregarTrat" type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal" onclick="AbrirTratamiento()">
+                                                                                    <i class="fa fa-fw fa-lg fa-plus">
+                                                                                    </i>
+                                                                                </button>
+                                                                                <input type="button" value="Agregar Diagonstico y Tratamiento" onclick="AgregarDiagnosticoTratamiento()" />
+
+                                                                            </div>
+
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div style="text-align:center;">
+                                                                    <form class="form-inline"></form>
+                                                                </div>
+                                                                <div class="modal fade" id="myModal" role="dialog">
+                                                                    <div class="modal-dialog modal-lg">
+
+                                                                        <!-- Modal content-->
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                                <h4 class="modal-title">Tratamiento</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="card col-md-12">
+                                                                                    <div class="card-content">
+                                                                                        <form class="form-horizontal">
+                                                                                            
+                                                                                            <div class="form-group col-md-5">
+                                                                                                <label class="control-label col-md-2">Indicacion</label>
+                                                                                                <div class="col-md-12">
+                                                                                                    @Html.Editor("indicacionServicio", new { htmlAttributes = new { @class = "form-control", @id = "indicacionServicio" } })
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="col-md-5">
+                                                                                                <label>Servicio</label>
+                                                                                                @Html.DropDownList("idServicio", null, htmlAttributes: new { @class = "form-control" })
+                                                                                            </div>
+                                                                                            <div class="col-md-5">
+                                                                                                <label>Producto</label>
+                                                                                                @Html.DropDownList("idProducto", null, htmlAttributes: new { @class = "form-control" })
+                                                                                            </div>
+                                                                                            &nbsp;&nbsp;&nbsp;
+
+                                                                                            &nbsp;&nbsp;&nbsp;
+
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            <div style="text-align: center">
+                                                                                                <button type="button" class="btn btn-success" onclick="AgregarTratamiento()">Agregar </button>
+                                                                                            </div>
+
+
+
+
+
+
+                                                                                            <div class="card col-md-12">
+                                                                                                <div id="tratamiento" class="col-md-12">
+
+                                                                                                    
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                        </form>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;
+                                                                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="AgregarDiagnosticoTratamiento()">Agregar Tratamiento </button>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="card col-md-12">
+                                                                    <div class="col-md-12">
+                                                                        <table id="tableDiagnostico" class="table table-responsive table-striped table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>ID Cie10</th>
+                                                                                    <th>Cie10</th>
+                                                                                    <th>Diagnostico</th>
+                                                                                    <th>Tratamiento</th>
+                                                                                    <th>numTratamientos</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @if (Model != null)
+                                                                                {
+                                                                                    foreach (var item in Model.oListDiagnostico)
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td>@Html.DisplayTextFor(i => item.idCie10) </td>
+                                                                                            <td>@Html.DisplayTextFor(i => item.descDiagnostico)</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                        
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--INFATENCIONL-->
+                                            <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="profile-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        <div class="card">
+                                                            <form id="InfAtension">
+                                                                <!--FECHAREGISTRO-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha de Registro</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input" disabled>
+                                                                        </div>
+                                                                        <div class="col-md-2" style="text-align: right;">
+                                                                            <a class="btn btn-success icon-btn" href="create.html">
+                                                                                <i class="fa fa-fw fa-lg fa-search">
+                                                                                </i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--MEDICODETURNO-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Médico de turno</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" id="select" disabled>
+                                                                                <option value="">-- Seleccionar --</option>
+                                                                                <option value="1" selected>Dr. Pedro Lorenzo Cardenas</option>
+                                                                                <option value="3">Dr. Jose Anibal León </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-2" style="text-align: right;">
+                                                                            <a class="btn btn-success icon-btn" href="create.html">
+                                                                                <i class="fa fa-fw fa-lg fa-search">
+                                                                                </i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--NOTA-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Nota</label>
+                                                                    <textarea class="form-control" rows="4" placeholder="Ingresar nota" disabled></textarea>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--INFUNCIONVITAL-->
+                                            <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="dropdown1-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        <div class="card-content">
+                                                            <form id="InfFuncionVital">
+                                                                <!--SISTOLE-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Sistole</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.sistole, new { htmlAttributes = new { @class = "form-control", @id = "sistole" } })
+                                                                </div>
+                                                                <!--DiASTOLE-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Diastole</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.diastole, new { htmlAttributes = new { @class = "form-control", @id = "diastole" } })
+                                                                </div>
+                                                                <!--PULSACIÓN-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Pulsación</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.pulsacion, new { htmlAttributes = new { @class = "form-control", @id = "pulsacion" } })
+                                                                </div>
+                                                                <!--RITMORESPIRATORIO-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Ritmo Respiratorio</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.ritmoRespiratorio, new { htmlAttributes = new { @class = "form-control", @id = "ritmoRespiratorio" } })
+                                                                </div>
+                                                                <!--TEMPERATURA-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Temperatura</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.temperatura, new { htmlAttributes = new { @class = "form-control", @id = "temperatura" } })
+                                                                </div>
+                                                                <!--ALTURA-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Atura</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.altura, new { htmlAttributes = new { @class = "form-control", @id = "altura" } })
+                                                                </div>
+                                                                <!--PESO-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">Peso</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.peso, new { htmlAttributes = new { @class = "form-control", @id = "peso" } })
+                                                                </div>
+                                                                <!--IMC-->
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="control-label">IMC</label>
+                                                                    @Html.EditorFor(model => model.oFuncionVital.imc, new { htmlAttributes = new { @class = "form-control", @id = "imc" } })
+                                                                </div>
+                                                                <!--FECHAREGISTRO-->
+
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--EVOLUCION-->
+                                            <div role="tabpanel" class="tab-pane fade" id="tab4" aria-labelledby="dropdown1-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        <div class="card">
+                                                            <form id="InfEvolucion">
+                                                                <!--DESCRIPCCION-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Descripción</label>
+                                                                    @Html.Editor("descEvolucion", new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                                                </div>
+                                                                <div class="form-group" style="">
+                                                                    <label class="control-label col-lg-12">Estado</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <div class="animated-radio-button">
+                                                                                <!--PESIMO-->
+                                                                                <label>
+                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option1"><span class="label-text">Pésimo</span>
+                                                                                </label>
+                                                                                <label for="" style="width: 30px;"></label>
+                                                                                <!--MALO-->
+                                                                                <label>
+                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2"><span class="label-text">Malo</span>
+                                                                                </label>
+                                                                                <label for="" style="width: 30px;"></label>
+                                                                                <!--REGULAR-->
+                                                                                <label>
+                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2"><span class="label-text">Regular</span>
+                                                                                </label>
+                                                                                <label for="" style="width: 30px;"></label>
+                                                                                <!--BUENO-->
+                                                                                <label>
+                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2" checked="checked"><span class="label-text">Bueno</span>
+                                                                                </label>
+                                                                                <label for="" style="width: 30px;"></label>
+                                                                                <!--EXCELENTE-->
+                                                                                <label>
+                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2"><span class="label-text">Excelente</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <input type="button" value="Agregar Evolucion" onclick="AgregarEvolucion()" />
+
+                                                                <table id="tableEvolucion">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Evolucion</th>
+                                                                            <th>Condicion</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @if (Model != null)
+                                                                        {
+                                                                            foreach (var item in Model.oListEvolucion)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@Html.DisplayTextFor(i => item.descEvolucion)</td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--EXAMENFISICO-->
+                                            <div role="tabpanel" class="tab-pane fade" id="tab5" aria-labelledby="dropdown1-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        <div class="card">
+                                                            <form id="InfExamenFisico">
+                                                                <!--DESCRIPCCION-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Descripción</label>
+                                                                    @Html.Editor("descExamenFisico", new { htmlAttributes = new { @class = "form-control" } })
+
+                                                                </div>
+
+                                                                <input type="button" value="Agregar Examen Fisico" onclick="AgregarExamenFisico()" />
+
+                                                                <table id="tableExamenFisico">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Examen Fisico</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @if (Model != null)
+                                                                        {
+                                                                            foreach (var item in Model.oListExamenFisico)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@Html.DisplayTextFor(i => item.descExamenFisico)</td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!--Estudio Complementario-->
+                                            <div role="tabpanel" class="tab-pane fade" id="tab6" aria-labelledby="dropdown1-tab">
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        <div class="card">
+                                                            <form id="InfEstudioComplementario">
+                                                                <!--Desc EstudioComplementario-->
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Descripción</label>
+                                                                    @Html.Editor("descEstudioCompl", new { htmlAttributes = new { @class = "form-control" } })
+                                                                </div>
+                                                                <!--FECHAREGISTRO-->
+                                                                <input type="button" value="Agregar Estudio Complementario" onclick="AgregarEstudioCompl()" />
+
+                                                                <table id="tableEstudioCompl">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Estudio Complementario</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @if (Model != null)
+                                                                        {
+                                                                            foreach (var item in Model.oListEstudioCompl)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@Html.DisplayTextFor(i => item.descEstudioCompl)</td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        
+
+
+                                        <!--INFOARCHIVOCOMPL1-->
+                                        <!--INFOARCHIVOCOMPL2-->
+
+
+
+                                        <div class="card" style="text-align: center;">
+                                            <div class="card-body">
+                                                <form class="form-inline">
+                                                    <div class="row">
+                                                        <div class="col-lg-10">
+                                                            <input type="button" value="Create" onclick="EnviarAtencion()" class="btn btn-default" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            @*INFORMACION BASICA  *@
-            <div class="form-group">
-                @Html.Label("paciente", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("paciente", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("numDocumento", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("numDocumento", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("numHistoria", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("numHistoria", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                </div>
-            </div>
-            @* DATOS PARA CONTROLLER *@
-            <div class="form-group">
-                <div class="col-md-10">
-                    @Html.HiddenFor(model => model.idUsuario)
-                </div>
-            </div>
-    
-            <div class="form-group">
-                
-                <div class="col-md-10">
-                    @Html.HiddenFor(model => model.idCita)
-                </div>
-            </div>
-            @* Anamnesis *@
-            <div class="form-group">
-                @Html.Label("Anamnesis", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oAnamnesis.descAnamnesis, new { htmlAttributes = new { @class = "form-control", @id= "descAnamnesis"} })
-                </div>
-            </div>
-            @* Diagnostico // Tratamiento *@
-            <div class="form-group">
-                @Html.Label("idCie10", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("idCie10", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.Label("descDiagnostico", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("descDiagnostico", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.Label("descTratamiento", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("descTratamiento", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
 
-            <input type="button" value="Agregar Diagonstico y Tratamiento" onclick="AgregarDiagnosticoTratamiento()" />
 
-            <table id="tableDiagnostico">
-                <thead>
-                    <tr>
-                        <th>ID Cie10</th>
-                        <th>Cie10</th>
-                        <th>Diagnostico</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.oListDiagnostico)
-                        {
-                            <tr>
-                                <td>@Html.DisplayTextFor(i => item.idCie10) </td>
-                                <td>@Html.DisplayTextFor(i => item.descDiagnostico)</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-                
-            <table id="tableTratamiento">
-                <thead>
-                    <tr>
-                        <th>Tratamiento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.oListTratamiento)
-                        {
-                            <tr>
-                                <td>@Html.DisplayTextFor(i => item.descTratamiento)</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
 
-            @* Evolucion *@
-            <div class="form-group">
-                @Html.Label("descEvolucion", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("descEvolucion", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
 
-            <input type="button" value="Agregar Evolucion" onclick="AgregarEvolucion()" />
-
-            <table id="tableEvolucion">
-                <thead>
-                    <tr>
-                        <th>Evolucion</th>
-                        <th>Condicion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.oListEvolucion)
-                        {
-                            <tr>
-                                <td>@Html.DisplayTextFor(i => item.descEvolucion)</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-            @* Estudio Complementario *@
-
-            <div class="form-group">
-                @Html.Label("descEstudioCompl", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("descEstudioCompl", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <input type="button" value="Agregar Estudio Complementario" onclick="AgregarEstudioCompl()" />
-
-            <table id="tableEstudioCompl">
-                <thead>
-                    <tr>
-                        <th>Estudio Complementario</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.oListEstudioCompl)
-                        {
-                            <tr>
-                                <td>@Html.DisplayTextFor(i => item.descEstudioCompl)</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-            @* Funcion Vital *@
-
-            <div class="form-group">
-                @Html.Label("Sistole", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.sistole, new { htmlAttributes = new { @class = "form-control", @id = "sistole" } })
-                </div>
-            </div>
-            
-            <div class="form-group">
-                @Html.Label("Diastole", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.diastole, new { htmlAttributes = new { @class = "form-control", @id = "diastole" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Pulsasion", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.pulsacion, new { htmlAttributes = new { @class = "form-control", @id = "pulsacion" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("RitmoRespiratorio", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.ritmoRespiratorio, new { htmlAttributes = new { @class = "form-control", @id = "ritmoRespiratorio" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Temperatura", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.temperatura, new { htmlAttributes = new { @class = "form-control", @id = "temperatura" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Altura", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.altura, new { htmlAttributes = new { @class = "form-control", @id = "altura" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Peso", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.peso, new { htmlAttributes = new { @class = "form-control", @id = "peso" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("IMC", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.oFuncionVital.imc, new { htmlAttributes = new { @class = "form-control", @id = "imc" } })
-                </div>
-            </div>
-
-            @* Examen Fisico *@
-
-            <div class="form-group">
-                @Html.Label("descExamenFisico", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.Editor("descExamenFisico", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <input type="button" value="Agregar Examen Fisico" onclick="AgregarExamenFisico()" />
-
-            <table id="tableExamenFisico">
-                <thead>
-                    <tr>
-                        <th>Examen Fisico</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.oListExamenFisico)
-                        {
-                            <tr>
-                                <td>@Html.DisplayTextFor(i => item.descExamenFisico)</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="button" value="Create" onclick="EnviarAtencion()" class="btn btn-default"/>
-                </div>
-            </div>
+            <!--***FINCITA***-->
+            <!-- **********STARTCONFIRMATION********** -->
+            <!-- **********ENDCONFIRMATION********** -->
+            <!--*******************************************FIN***********************************-->
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
     </div>
+    <!--FIN DE MODIFICAR-->
+    <!-- Javascripts-->
+
+    
+
+
 </body>
 </html>

@@ -19,6 +19,7 @@ namespace MVC_BusinessEntity
         public CLlt08_diagnostico()
         {
             this.CLlt16_tratamiento = new HashSet<CLlt16_tratamiento>();
+            oListTratamiento = new List<CLlt16_tratamiento>();
         }
     
         public long idDiagnostico { get; set; }
@@ -28,6 +29,8 @@ namespace MVC_BusinessEntity
         public long idAtencion { get; set; }
         public Nullable<int> idCie10 { get; set; }
     
+        public List<CLlt16_tratamiento> oListTratamiento { get; set; }
+
         public virtual CLlt03_atencion CLlt03_atencion { get; set; }
         public virtual CLlt04_cie10 CLlt04_cie10 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -76,6 +76,8 @@ namespace Asiri_ERP.Controllers
             ViewBag.numDocumento = cita.RHUt07_paciente.RHUt09_persona.numDocIdentidad;
             ViewBag.numHistoria = cita.RHUt07_paciente.numHistoriaClinica;
             ViewBag.idCie10 = new SelectList(db.CLlt04_cie10, "idCie10", "descCie10");
+            ViewBag.idProducto = new SelectList(db.PROt02_producto, "idProducto", "nombreProductoComercial");
+            ViewBag.idServicio = new SelectList(db.PROt04_servicio, "idServicio", "nombreServicio");
             return View(oCLlt03_atencion);
         }
 
@@ -83,78 +85,101 @@ namespace Asiri_ERP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult CreateAtencion(CLlt03_atencion cLlt03_atencion)
+        public JsonResult CreateAtencion(CLlt03_atencion cLlt03_atencion)
         {
-            //Atencion
-            cLlt03_atencion.idUsuario = 1;
-            cLlt03_atencion.fecRegistro = DateTime.Now;
-            db.CLlt03_atencion.Add(cLlt03_atencion);
-            db.SaveChanges();
-            var ultimaAtencion = db.CLlt03_atencion.OrderByDescending(x => x.idAtencion).Take(1).ToList();
+            try
+            {
+                //Atencion
+                cLlt03_atencion.idUsuario = 1;
+                cLlt03_atencion.fecRegistro = DateTime.Now;
+                db.CLlt03_atencion.Add(cLlt03_atencion);
+                db.SaveChanges();
+                //var ultimaAtencion = db.CLlt03_atencion.OrderByDescending(x => x.idAtencion).Take(1).ToList();
+
+                //Diagnostico y Tratamiento
+                CLlt08_diagnostico oCLlt08_diagnostico;
+                CLlt16_tratamiento oCLlt16_tratamiento;
+                for (int i = 0; i < cLlt03_atencion.oListDiagnostico.Count; i++)
+                {
+                    oCLlt08_diagnostico = new CLlt08_diagnostico();
+                    oCLlt16_tratamiento = new CLlt16_tratamiento();
+                    oCLlt08_diagnostico.idCie10 = cLlt03_atencion.oListDiagnostico[i].idCie10;
+                    oCLlt08_diagnostico.descDiagnostico = cLlt03_atencion.oListDiagnostico[i].descDiagnostico;
+                    oCLlt08_diagnostico.idAtencion = cLlt03_atencion.idAtencion;
+                    db.CLlt08_diagnostico.Add(oCLlt08_diagnostico);
+                    db.SaveChanges();
+
+                    //var ultimoDiagnostico = db.CLlt08_diagnostico.OrderByDescending(x => x.idDiagnostico).Take(1).ToList();
+
+                    oCLlt16_tratamiento.descTratamiento = cLlt03_atencion.oListDiagnostico[i].oListTratamiento[0].descTratamiento;
+                    oCLlt16_tratamiento.idDiagnostico = oCLlt08_diagnostico.idDiagnostico;
+                    db.CLlt16_tratamiento.Add(oCLlt16_tratamiento);
+                    db.SaveChanges();
+                    CLlt17_tratamientoDtl oCLlt17_tratamientoDtl;
+                    for (int j = 0; j < cLlt03_atencion.oListDiagnostico[i].oListTratamiento[0].oListTratamientoDtl.Count; j++)
+                    {
+                        oCLlt17_tratamientoDtl = new CLlt17_tratamientoDtl();
+                        oCLlt17_tratamientoDtl.indicacionServicio = cLlt03_atencion.oListDiagnostico[i].oListTratamiento[0].oListTratamientoDtl[j].indicacionServicio;
+                        oCLlt17_tratamientoDtl.idServicio = cLlt03_atencion.oListDiagnostico[i].oListTratamiento[0].oListTratamientoDtl[j].idServicio;
+                        oCLlt17_tratamientoDtl.idProducto = cLlt03_atencion.oListDiagnostico[i].oListTratamiento[0].oListTratamientoDtl[j].idProducto;
+                        oCLlt17_tratamientoDtl.idTratamiento = oCLlt16_tratamiento.idTratamiento;
+                        db.CLlt17_tratamientoDtl.Add(oCLlt17_tratamientoDtl);
+                        db.SaveChanges();
+                    }
+
+
+                }
+
+                //Anamnesis
+                cLlt03_atencion.oAnamnesis.idAtencion = cLlt03_atencion.idAtencion;
+                db.CLIt01_anamnesis.Add(cLlt03_atencion.oAnamnesis);
+                db.SaveChanges();
+
+                //Evolucion
+                CLlt11_evolucion oCLlt11_evolucion = new CLlt11_evolucion();
+                for (int i = 0; i < cLlt03_atencion.oListEvolucion.Count; i++)
+                {
+                    oCLlt11_evolucion.idAtencion = cLlt03_atencion.idAtencion;
+                    oCLlt11_evolucion.descEvolucion = cLlt03_atencion.oListEvolucion[i].descEvolucion;
+                    db.CLlt11_evolucion.Add(oCLlt11_evolucion);
+                    db.SaveChanges();
+                }
+
+                //Estudio Complementario
+                CLlt10_estudioCompl oCLlt10_estudioCompl = new CLlt10_estudioCompl();
+
+                for (int i = 0; i < cLlt03_atencion.oListEstudioCompl.Count; i++)
+                {
+                    oCLlt10_estudioCompl.idAtencion = cLlt03_atencion.idAtencion;
+                    oCLlt10_estudioCompl.descEstudioCompl = cLlt03_atencion.oListEstudioCompl[i].descEstudioCompl;
+                    db.CLlt10_estudioCompl.Add(oCLlt10_estudioCompl);
+                    db.SaveChanges();
+                }
+
+
+                //Funcion Vital
+                cLlt03_atencion.oFuncionVital.idAtencion = cLlt03_atencion.idAtencion;
+                db.CLlt13_funcionVital.Add(cLlt03_atencion.oFuncionVital);
+                db.SaveChanges();
+
+                //Examen Fisico
+                CLlt12_examenFisico oCLlt12_examenFisico = new CLlt12_examenFisico();
+                for (int i = 0; i < cLlt03_atencion.oListExamenFisico.Count; i++)
+                {
+                    oCLlt12_examenFisico.idAtencion = cLlt03_atencion.idAtencion;
+                    oCLlt12_examenFisico.descExamenFisico = cLlt03_atencion.oListExamenFisico[i].descExamenFisico;
+                    db.CLlt12_examenFisico.Add(oCLlt12_examenFisico);
+                    db.SaveChanges();
+                }
+                return Json(new { Success = 1, resultado = true, ex = "" });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = 0, ex = ex.Message.ToString() });
+            }
+
             
-            //Diagnostico y Tratamiento
-            CLlt08_diagnostico oCLlt08_diagnostico = new CLlt08_diagnostico();
-            CLlt16_tratamiento oCLlt16_tratamiento = new CLlt16_tratamiento();
-            for (int i = 0; i < cLlt03_atencion.oListDiagnostico.Count; i++)
-            {
-                oCLlt08_diagnostico.idCie10 = cLlt03_atencion.oListDiagnostico[i].idCie10;
-                oCLlt08_diagnostico.descDiagnostico = cLlt03_atencion.oListDiagnostico[i].descDiagnostico;
-                oCLlt08_diagnostico.idAtencion = ultimaAtencion[0].idAtencion;
-                db.CLlt08_diagnostico.Add(oCLlt08_diagnostico);
-                db.SaveChanges();
-
-                var ultimoDiagnostico = db.CLlt08_diagnostico.OrderByDescending(x => x.idDiagnostico).Take(1).ToList();
-
-                oCLlt16_tratamiento.descTratamiento = cLlt03_atencion.oListTratamiento[i].descTratamiento;
-                oCLlt16_tratamiento.idDiagnostico = ultimoDiagnostico[0].idDiagnostico;
-                db.CLlt16_tratamiento.Add(oCLlt16_tratamiento);
-                db.SaveChanges();
-
-            }
-
-            //Anamnesis
-            cLlt03_atencion.oAnamnesis.idAtencion = ultimaAtencion[0].idAtencion;
-            db.CLIt01_anamnesis.Add(cLlt03_atencion.oAnamnesis);
-            db.SaveChanges();
-
-            //Evolucion
-            CLlt11_evolucion oCLlt11_evolucion = new CLlt11_evolucion();
-            for (int i = 0; i < cLlt03_atencion.oListEvolucion.Count; i++)
-            {
-                oCLlt11_evolucion.idAtencion = ultimaAtencion[0].idAtencion;
-                oCLlt11_evolucion.descEvolucion = cLlt03_atencion.oListEvolucion[i].descEvolucion;
-                db.CLlt11_evolucion.Add(oCLlt11_evolucion);
-                db.SaveChanges();
-            }
-
-            //Estudio Complementario
-            CLlt10_estudioCompl oCLlt10_estudioCompl = new CLlt10_estudioCompl();
-
-            for (int i = 0; i < cLlt03_atencion.oListEstudioCompl.Count; i++)
-            {
-                oCLlt10_estudioCompl.idAtencion = ultimaAtencion[0].idAtencion;
-                oCLlt10_estudioCompl.descEstudioCompl = cLlt03_atencion.oListEstudioCompl[i].descEstudioCompl;
-                db.CLlt10_estudioCompl.Add(oCLlt10_estudioCompl);
-                db.SaveChanges();
-            }
-
-
-            //Funcion Vital
-            cLlt03_atencion.oFuncionVital.idAtencion = ultimaAtencion[0].idAtencion;
-            db.CLlt13_funcionVital.Add(cLlt03_atencion.oFuncionVital);
-            db.SaveChanges();
-
-            //Examen Fisico
-            CLlt12_examenFisico oCLlt12_examenFisico = new CLlt12_examenFisico();
-            for (int i = 0; i < cLlt03_atencion.oListExamenFisico.Count; i++)
-            {
-                oCLlt12_examenFisico.idAtencion = ultimaAtencion[0].idAtencion;
-                oCLlt12_examenFisico.descExamenFisico = cLlt03_atencion.oListExamenFisico[i].descExamenFisico;
-                db.CLlt12_examenFisico.Add(oCLlt12_examenFisico);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
 
         }
 
