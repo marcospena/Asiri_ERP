@@ -109,7 +109,7 @@
         {
             var numTabla = 0;
             for (var i = 0; i >= 0; i++) {
-                var t = $("#tableTratamiento" + [i + 1]).length
+                var t = $("#tableTratamiento" + [i + 1]).length;
                 if (t == 0) {
                     t = i;
                     numTabla = t;
@@ -117,46 +117,87 @@
                 }
 
             }
-            $("#" + numTabla).hide();
-            var div = document.createElement('div');
-            div.id = [numTabla + 1];
-            div.innerHTML = "<table id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th></tr></thead><tbody></tbody></table>";
-            
+            var tdata = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
+            if (numTabla == 0) {
 
-            document.getElementById("tratamiento").appendChild(div);
-            $('#tableTratamiento' + [numTabla + 1]).dataTable({
-                ordering: false,
-                language: {
-                    processing: "En curso...",
-                    search: "Buscar:",
-                    lengthMenu: "Visualizar _MENU_ registros",
-                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                    infoEmpty: "0 registros encontrados",
-                    infoFiltered: "(_MAX_ registros filtrados en total)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando registros...",
-                    zeroRecords: "No hay registros",
-                    emptyTable: "Vacío",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Previo  ",
-                        next: "  Siguiente",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                $("#" + numTabla).hide();
+                var div = document.createElement('div');
+                div.id = [numTabla + 1];
+                div.innerHTML = "<table id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th></tr></thead><tbody></tbody></table>";
+
+
+                document.getElementById("tratamiento").appendChild(div);
+                $('#tableTratamiento' + [numTabla + 1]).dataTable({
+                    ordering: false,
+                    language: {
+                        processing: "En curso...",
+                        search: "Buscar:",
+                        lengthMenu: "Visualizar _MENU_ registros",
+                        info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                        infoEmpty: "0 registros encontrados",
+                        infoFiltered: "(_MAX_ registros filtrados en total)",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando registros...",
+                        zeroRecords: "No hay registros",
+                        emptyTable: "Vacío",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Previo  ",
+                            next: "  Siguiente",
+                            last: "Último"
+                        },
+                        aria: {
+                            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                        }
                     }
-                }
-            });
+                });
+            }
+            if (tdata.length != 0) {
+
+                $("#" + numTabla).hide();
+                var div = document.createElement('div');
+                div.id = [numTabla + 1];
+                div.innerHTML = "<table id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th></tr></thead><tbody></tbody></table>";
+
+
+                document.getElementById("tratamiento").appendChild(div);
+                $('#tableTratamiento' + [numTabla + 1]).dataTable({
+                    ordering: false,
+                    language: {
+                        processing: "En curso...",
+                        search: "Buscar:",
+                        lengthMenu: "Visualizar _MENU_ registros",
+                        info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                        infoEmpty: "0 registros encontrados",
+                        infoFiltered: "(_MAX_ registros filtrados en total)",
+                        infoPostFix: "",
+                        loadingRecords: "Cargando registros...",
+                        zeroRecords: "No hay registros",
+                        emptyTable: "Vacío",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Previo  ",
+                            next: "  Siguiente",
+                            last: "Último"
+                        },
+                        aria: {
+                            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                        }
+                    }
+                });
+            }
         }
 
 
         function AgregarTratamiento()
         {
             var numTabla = 0;
+            
             for (var i = 0; i >= 0; i++) {
-                var t = $("#tableTratamiento" + [i + 1]).length
+                var t = $("#tableTratamiento" + [i + 1]).length;
+                
                 if (t == 0) {
                     t = i;
                     numTabla = t;
@@ -171,10 +212,10 @@
             var indiceP = comboProducto.selectedIndex;
             var nombreProducto = comboProducto.options[comboProducto.selectedIndex].text;
             $("#tableTratamiento" + numTabla).dataTable().fnAddData([$("#indicacionServicio").val(),
-                                                          $("#idServicio").val(),
-                                                          nombreServicio,
                                                           $("#idProducto").val(),
-                                                          nombreProducto]);
+                                                          nombreProducto,
+                                                          $("#idServicio").val(),
+                                                          nombreServicio]);
 
             $("#indicacionServicio").val("");
             comboServicio.selectedIndex = 0;
@@ -186,8 +227,9 @@
         function AgregarDiagnosticoTratamiento()
         {
             var numTabla = 0;
+            
             for (var i = 0; i >= 0; i++) {
-                var t = $("#tableTratamiento" + [i + 1]).length
+                var t = $("#tableTratamiento" + [i + 1]).length;
                 if (t == 0) {
                     t = i;
                     numTabla = t;
