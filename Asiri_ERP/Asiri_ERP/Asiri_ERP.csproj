@@ -227,6 +227,8 @@
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\hstyle.css" />
+    <Content Include="Content\css\jquery.fileuploader-theme-thumbnails.css" />
+    <Content Include="Content\css\jquery.fileuploader.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\tabs.css" />
     <Content Include="Content\DataTables\css\cliente.css" />
@@ -261,6 +263,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\essential-plugins.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\hstyle.js" />
@@ -268,6 +271,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery.fileuploader.js" />
+    <Content Include="Scripts\jquery.fileuploader.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

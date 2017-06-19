@@ -82,11 +82,6 @@ C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\Microsoft.Owin.Secur
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.csprojResolveAssemblyReference.cache
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.dll
 C:\Users\roy\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.pdb
-C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.csprojResolveAssemblyReference.cache
-C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.Migrations.pathArchivofield.resources
-C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.csproj.GenerateResource.Cache
-C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.dll
-C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.pdb
 C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\ApplicationInsights.config
 C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\roslyn\csc.exe
 C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -168,3 +163,8 @@ C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\Microsoft.Owin.Se
 C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.csprojResolveAssemblyReference.cache
+C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.Migrations.pathArchivofield.resources
+C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.csproj.GenerateResource.Cache
+C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.dll
+C:\Users\Marcos\Source\Repos\Asiri_ERP\Asiri_ERP\Asiri_ERP\obj\Debug\Asiri_ERP.pdb
