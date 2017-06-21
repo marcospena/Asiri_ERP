@@ -12,22 +12,28 @@ namespace MVC_BusinessEntity
     using System;
     using System.Collections.Generic;
     
-    public partial class TNSt06_medioDePagoDtl
+    public partial class RHUt14_turno
     {
-        public long idMedioDePagoDtl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RHUt14_turno()
+        {
+            this.RHUt03_empleadoTurno = new HashSet<RHUt03_empleadoTurno>();
+        }
+    
+        public short idTurno { get; set; }
+        public string descTurno { get; set; }
+        public string abrvTurno { get; set; }
+        public System.TimeSpan horaInicio { get; set; }
+        public System.TimeSpan horaFin { get; set; }
+        public bool activo { get; set; }
         public System.DateTime fecRegistro { get; set; }
         public Nullable<System.DateTime> fecModificacion { get; set; }
         public Nullable<System.DateTime> fecEliminacion { get; set; }
-        public decimal mtoMedioDePago { get; set; }
-        public Nullable<decimal> tipoDeCambio { get; set; }
-        public bool activo { get; set; }
         public long idUsuario { get; set; }
         public Nullable<long> idUsuarioModificar { get; set; }
         public Nullable<long> idUsuarioEliminar { get; set; }
-        public long idComprobanteEmitido { get; set; }
-        public short idMedioDePago { get; set; }
     
-        public virtual MSTt01_medioDePago MSTt01_medioDePago { get; set; }
-        public virtual TNSt01_comprobanteEmitido TNSt01_comprobanteEmitido { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RHUt03_empleadoTurno> RHUt03_empleadoTurno { get; set; }
     }
 }

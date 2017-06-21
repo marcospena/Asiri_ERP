@@ -11,7 +11,9 @@ namespace MVC_BusinessEntity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CLlt03_atencion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,10 +38,13 @@ namespace MVC_BusinessEntity
         }
     
         public long idAtencion { get; set; }
+        [Required(ErrorMessage = "Debe Insertar un Codigo")]
+        [StringLength(10)]
         public string codAtencion { get; set; }
         public System.DateTime fecRegistro { get; set; }
         public long idUsuario { get; set; }
         public Nullable<long> idCita { get; set; }
+
         public List<CLlt03_atencion> oListAtencion { get; set; }
         public List<CLlt11_evolucion> oListEvolucion { get; set; }
         public List<CLlt08_diagnostico> oListDiagnostico { get; set; }

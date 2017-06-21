@@ -14,8 +14,7 @@
       <PropertyRef Name="idArchivoEstudioCompl" />
     </Key>
     <Property Name="idArchivoEstudioCompl" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="descArchivoEstudioCompl" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="pathArchivo" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+    <Property Name="pathArchivo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
     <Property Name="idEstudioCompl" Type="Int64" Nullable="false" />
     <NavigationProperty Name="CLlt10_estudioCompl" Relationship="Self.RefCLlt10_estudioCompl14" FromRole="CLIt02_archivoEstudioCompl" ToRole="CLlt10_estudioCompl" />
   </EntityType>
@@ -533,6 +532,7 @@
     <Property Name="idUsuarioModificar" Type="Int64" />
     <Property Name="idUsuarioEliminar" Type="Int64" />
     <NavigationProperty Name="RHUt01_empleado" Relationship="Self.RefRHUt01_empleado80" FromRole="RHUt03_empleadoTurno" ToRole="RHUt01_empleado" />
+    <NavigationProperty Name="RHUt14_turno" Relationship="Self.id_Turno" FromRole="RHUt03_empleadoTurno" ToRole="RHUt14_turno" />
   </EntityType>
   <EntityType Name="RHUt04_especialidad">
     <Key>
@@ -664,7 +664,7 @@
     <Property Name="sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="difunto" Type="Boolean" Nullable="false" />
     <Property Name="fecDefuncion" Type="DateTime" Precision="0" />
-    <Property Name="pathFoto" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+    <Property Name="pathFoto" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
     <Property Name="fecRegistro" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="fecModificacion" Type="DateTime" Precision="3" />
@@ -752,6 +752,24 @@
     <Property Name="idUsuarioModificar" Type="Int64" />
     <Property Name="idUsuarioEliminar" Type="Int64" />
     <NavigationProperty Name="RHUt04_especialidad" Relationship="Self.RefRHUt13_tipoEspecialidad83" FromRole="RHUt13_tipoEspecialidad" ToRole="RHUt04_especialidad" />
+  </EntityType>
+  <EntityType Name="RHUt14_turno">
+    <Key>
+      <PropertyRef Name="idTurno" />
+    </Key>
+    <Property Name="idTurno" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descTurno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="abrvTurno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="horaInicio" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <Property Name="fecRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="fecModificacion" Type="DateTime" Precision="3" />
+    <Property Name="fecEliminacion" Type="DateTime" Precision="3" />
+    <Property Name="idUsuario" Type="Int64" Nullable="false" />
+    <Property Name="idUsuarioModificar" Type="Int64" />
+    <Property Name="idUsuarioEliminar" Type="Int64" />
+    <NavigationProperty Name="RHUt03_empleadoTurno" Relationship="Self.id_Turno" FromRole="RHUt14_turno" ToRole="RHUt03_empleadoTurno" />
   </EntityType>
   <EntityType Name="SISt01_parametro">
     <Key>
@@ -869,7 +887,6 @@
     <Property Name="fecAnulacion" Type="DateTime" Precision="3" />
     <Property Name="razonAnulacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="esAnulado" Type="Boolean" Nullable="false" />
-    <Property Name="activo" Type="Boolean" Nullable="false" />
     <Property Name="fecEmision" Type="DateTime" Precision="3" />
     <Property Name="fecVencimiento" Type="DateTime" Precision="0" />
     <Property Name="fecCancelacion" Type="DateTime" Precision="3" />
@@ -887,7 +904,7 @@
     <Property Name="fecha02" Type="DateTime" Precision="3" />
     <Property Name="fecha03" Type="DateTime" Precision="3" />
     <Property Name="idCita" Type="Int64" Nullable="false" />
-    <Property Name="idEstadoComprobante" Type="Int16" Nullable="false" />
+    <Property Name="idEstadoComprobante" Type="Int16" />
     <Property Name="idSucursal" Type="Int32" Nullable="false" />
     <Property Name="idTipoComprobante" Type="Int32" Nullable="false" />
     <Property Name="idMoneda" Type="Int32" Nullable="false" />
@@ -981,7 +998,7 @@
       <PropertyRef Name="idMedioDePagoDtl" />
     </Key>
     <Property Name="idMedioDePagoDtl" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="fecRegistro" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="fecRegistro" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="fecModificacion" Type="DateTime" Precision="3" />
     <Property Name="fecEliminacion" Type="DateTime" Precision="3" />
     <Property Name="mtoMedioDePago" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
@@ -1725,6 +1742,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="id_Turno">
+    <End Role="RHUt14_turno" Type="Self.RHUt14_turno" Multiplicity="1" />
+    <End Role="RHUt03_empleadoTurno" Type="Self.RHUt03_empleadoTurno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RHUt14_turno">
+        <PropertyRef Name="idTurno" />
+      </Principal>
+      <Dependent Role="RHUt03_empleadoTurno">
+        <PropertyRef Name="idTurno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="RefRHUt13_tipoEspecialidad83">
     <End Role="RHUt13_tipoEspecialidad" Type="Self.RHUt13_tipoEspecialidad" Multiplicity="1" />
     <End Role="RHUt04_especialidad" Type="Self.RHUt04_especialidad" Multiplicity="*" />
@@ -1882,7 +1911,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="RefTNSt04_estadoComprobante74">
-    <End Role="TNSt04_estadoComprobante" Type="Self.TNSt04_estadoComprobante" Multiplicity="1" />
+    <End Role="TNSt04_estadoComprobante" Type="Self.TNSt04_estadoComprobante" Multiplicity="0..1" />
     <End Role="TNSt01_comprobanteEmitido" Type="Self.TNSt01_comprobanteEmitido" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TNSt04_estadoComprobante">
@@ -2023,6 +2052,7 @@
     <EntitySet Name="RHUt11_tipoDeEmpleado" EntityType="Self.RHUt11_tipoDeEmpleado" />
     <EntitySet Name="RHUt12_tipoDocIdentidad" EntityType="Self.RHUt12_tipoDocIdentidad" />
     <EntitySet Name="RHUt13_tipoEspecialidad" EntityType="Self.RHUt13_tipoEspecialidad" />
+    <EntitySet Name="RHUt14_turno" EntityType="Self.RHUt14_turno" />
     <EntitySet Name="SISt01_parametro" EntityType="Self.SISt01_parametro" />
     <EntitySet Name="SNTt01_entidadFinanciera" EntityType="Self.SNTt01_entidadFinanciera" />
     <EntitySet Name="SNTt02_impuesto" EntityType="Self.SNTt02_impuesto" />
@@ -2232,6 +2262,10 @@
     <AssociationSet Name="RefRHUt04_especialidad4" Association="Self.RefRHUt04_especialidad4">
       <End Role="RHUt04_especialidad" EntitySet="RHUt04_especialidad" />
       <End Role="RHUt02_empleadoEspecialidad" EntitySet="RHUt02_empleadoEspecialidad" />
+    </AssociationSet>
+    <AssociationSet Name="id_Turno" Association="Self.id_Turno">
+      <End Role="RHUt14_turno" EntitySet="RHUt14_turno" />
+      <End Role="RHUt03_empleadoTurno" EntitySet="RHUt03_empleadoTurno" />
     </AssociationSet>
     <AssociationSet Name="RefRHUt13_tipoEspecialidad83" Association="Self.RefRHUt13_tipoEspecialidad83">
       <End Role="RHUt13_tipoEspecialidad" EntitySet="RHUt13_tipoEspecialidad" />

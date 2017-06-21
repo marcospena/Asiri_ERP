@@ -190,6 +190,9 @@
     <Compile Include="RHUt13_tipoEspecialidad.cs">
       <DependentUpon>dbAsiri_ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="RHUt14_turno.cs">
+      <DependentUpon>dbAsiri_ERP.tt</DependentUpon>
+    </Compile>
     <Compile Include="SISt01_parametro.cs">
       <DependentUpon>dbAsiri_ERP.tt</DependentUpon>
     </Compile>
@@ -258,17 +261,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="dbAsiri_ERP.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbAsiri_ERP.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="dbAsiri_ERP.edmx.diagram">
       <DependentUpon>dbAsiri_ERP.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dbAsiri_ERP.Context.tt">
@@ -282,10 +286,6 @@
       <LastGenOutput>dbAsiri_ERP.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

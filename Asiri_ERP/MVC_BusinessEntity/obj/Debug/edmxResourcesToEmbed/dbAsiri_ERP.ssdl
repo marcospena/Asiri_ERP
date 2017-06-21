@@ -13,8 +13,7 @@
       <PropertyRef Name="idArchivoEstudioCompl" />
     </Key>
     <Property Name="idArchivoEstudioCompl" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="descArchivoEstudioCompl" Type="varchar" MaxLength="2500" Nullable="false" />
-    <Property Name="pathArchivo" Type="varchar" MaxLength="260" />
+    <Property Name="pathArchivo" Type="varbinary(max)" Nullable="false" />
     <Property Name="idEstudioCompl" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="CLlt03_atencion">
@@ -580,7 +579,7 @@
     <Property Name="sexo" Type="char" MaxLength="1" />
     <Property Name="difunto" Type="bit" Nullable="false" />
     <Property Name="fecDefuncion" Type="date" />
-    <Property Name="pathFoto" Type="varchar" MaxLength="260" />
+    <Property Name="pathFoto" Type="varbinary(max)" />
     <Property Name="activo" Type="bit" Nullable="false" />
     <Property Name="fecRegistro" Type="datetime" Nullable="false" />
     <Property Name="fecModificacion" Type="datetime" />
@@ -648,6 +647,23 @@
     <Property Name="nombreEspecialidad" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="descEspecialidad" Type="varchar" MaxLength="300" />
     <Property Name="abrvTipoEspecialidad" Type="varchar" MaxLength="40" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+    <Property Name="fecRegistro" Type="datetime" Nullable="false" />
+    <Property Name="fecModificacion" Type="datetime" />
+    <Property Name="fecEliminacion" Type="datetime" />
+    <Property Name="idUsuario" Type="bigint" Nullable="false" />
+    <Property Name="idUsuarioModificar" Type="bigint" />
+    <Property Name="idUsuarioEliminar" Type="bigint" />
+  </EntityType>
+  <EntityType Name="RHUt14_turno">
+    <Key>
+      <PropertyRef Name="idTurno" />
+    </Key>
+    <Property Name="idTurno" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descTurno" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="abrvTurno" Type="varchar" MaxLength="10" />
+    <Property Name="horaInicio" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
     <Property Name="fecRegistro" Type="datetime" Nullable="false" />
     <Property Name="fecModificacion" Type="datetime" />
@@ -766,7 +782,6 @@
     <Property Name="fecAnulacion" Type="datetime" />
     <Property Name="razonAnulacion" Type="varchar" MaxLength="300" />
     <Property Name="esAnulado" Type="bit" Nullable="false" />
-    <Property Name="activo" Type="bit" Nullable="false" />
     <Property Name="fecEmision" Type="datetime" />
     <Property Name="fecVencimiento" Type="date" />
     <Property Name="fecCancelacion" Type="datetime" />
@@ -784,7 +799,7 @@
     <Property Name="fecha02" Type="datetime" />
     <Property Name="fecha03" Type="datetime" />
     <Property Name="idCita" Type="bigint" Nullable="false" />
-    <Property Name="idEstadoComprobante" Type="smallint" Nullable="false" />
+    <Property Name="idEstadoComprobante" Type="smallint" />
     <Property Name="idSucursal" Type="int" Nullable="false" />
     <Property Name="idTipoComprobante" Type="int" Nullable="false" />
     <Property Name="idMoneda" Type="int" Nullable="false" />
@@ -863,7 +878,7 @@
       <PropertyRef Name="idMedioDePagoDtl" />
     </Key>
     <Property Name="idMedioDePagoDtl" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fecRegistro" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="fecRegistro" Type="datetime" Nullable="false" />
     <Property Name="fecModificacion" Type="datetime" />
     <Property Name="fecEliminacion" Type="datetime" />
     <Property Name="mtoMedioDePago" Type="decimal" Precision="18" Scale="6" Nullable="false" />
@@ -1025,6 +1040,18 @@
     <Property Name="idUsuarioModificar" Type="bigint" />
     <Property Name="idUsuarioEliminar" Type="bigint" />
   </EntityType>
+  <Association Name="id_Turno">
+    <End Role="RHUt14_turno" Type="Self.RHUt14_turno" Multiplicity="1" />
+    <End Role="RHUt03_empleadoTurno" Type="Self.RHUt03_empleadoTurno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RHUt14_turno">
+        <PropertyRef Name="idTurno" />
+      </Principal>
+      <Dependent Role="RHUt03_empleadoTurno">
+        <PropertyRef Name="idTurno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="RefCLlt03_atencion11">
     <End Role="CLlt03_atencion" Type="Self.CLlt03_atencion" Multiplicity="1" />
     <End Role="CLlt12_examenFisico" Type="Self.CLlt12_examenFisico" Multiplicity="*" />
@@ -1710,7 +1737,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="RefTNSt04_estadoComprobante74">
-    <End Role="TNSt04_estadoComprobante" Type="Self.TNSt04_estadoComprobante" Multiplicity="1" />
+    <End Role="TNSt04_estadoComprobante" Type="Self.TNSt04_estadoComprobante" Multiplicity="0..1" />
     <End Role="TNSt01_comprobanteEmitido" Type="Self.TNSt01_comprobanteEmitido" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TNSt04_estadoComprobante">
@@ -1887,6 +1914,7 @@
     <EntitySet Name="RHUt11_tipoDeEmpleado" EntityType="Self.RHUt11_tipoDeEmpleado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RHUt12_tipoDocIdentidad" EntityType="Self.RHUt12_tipoDocIdentidad" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RHUt13_tipoEspecialidad" EntityType="Self.RHUt13_tipoEspecialidad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RHUt14_turno" EntityType="Self.RHUt14_turno" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SISt01_parametro" EntityType="Self.SISt01_parametro" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SNTt01_entidadFinanciera" EntityType="Self.SNTt01_entidadFinanciera" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SNTt02_impuesto" EntityType="Self.SNTt02_impuesto" Schema="dbo" store:Type="Tables" />
@@ -1909,6 +1937,10 @@
     <EntitySet Name="USRt03_rol" EntityType="Self.USRt03_rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USRt04_usuario" EntityType="Self.USRt04_usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USRt05_usuarioRol" EntityType="Self.USRt05_usuarioRol" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="id_Turno" Association="Self.id_Turno">
+      <End Role="RHUt14_turno" EntitySet="RHUt14_turno" />
+      <End Role="RHUt03_empleadoTurno" EntitySet="RHUt03_empleadoTurno" />
+    </AssociationSet>
     <AssociationSet Name="RefCLlt03_atencion11" Association="Self.RefCLlt03_atencion11">
       <End Role="CLlt03_atencion" EntitySet="CLlt03_atencion" />
       <End Role="CLlt12_examenFisico" EntitySet="CLlt12_examenFisico" />

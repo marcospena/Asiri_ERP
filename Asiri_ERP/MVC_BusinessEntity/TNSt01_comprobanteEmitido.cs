@@ -29,7 +29,6 @@ namespace MVC_BusinessEntity
         public Nullable<System.DateTime> fecAnulacion { get; set; }
         public string razonAnulacion { get; set; }
         public bool esAnulado { get; set; }
-        public bool activo { get; set; }
         public Nullable<System.DateTime> fecEmision { get; set; }
         public Nullable<System.DateTime> fecVencimiento { get; set; }
         public Nullable<System.DateTime> fecCancelacion { get; set; }
@@ -47,7 +46,7 @@ namespace MVC_BusinessEntity
         public Nullable<System.DateTime> fecha02 { get; set; }
         public Nullable<System.DateTime> fecha03 { get; set; }
         public long idCita { get; set; }
-        public short idEstadoComprobante { get; set; }
+        public Nullable<short> idEstadoComprobante { get; set; }
         public int idSucursal { get; set; }
         public int idTipoComprobante { get; set; }
         public int idMoneda { get; set; }

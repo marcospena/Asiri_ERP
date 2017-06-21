@@ -26,7 +26,7 @@ namespace MVC_BusinessEntity
         public Nullable<long> idDiagnostico { get; set; }
 
         public List<CLlt17_tratamientoDtl> oListTratamientoDtl { get; set; }
-    
+
         public virtual CLlt08_diagnostico CLlt08_diagnostico { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLlt17_tratamientoDtl> CLlt17_tratamientoDtl { get; set; }

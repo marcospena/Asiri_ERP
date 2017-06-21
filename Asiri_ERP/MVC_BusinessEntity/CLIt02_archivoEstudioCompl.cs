@@ -15,8 +15,7 @@ namespace MVC_BusinessEntity
     public partial class CLIt02_archivoEstudioCompl
     {
         public long idArchivoEstudioCompl { get; set; }
-        public string descArchivoEstudioCompl { get; set; }
-        public string pathArchivo { get; set; }
+        public byte[] pathArchivo { get; set; }
         public long idEstudioCompl { get; set; }
     
         public virtual CLlt10_estudioCompl CLlt10_estudioCompl { get; set; }

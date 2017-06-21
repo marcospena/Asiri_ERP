@@ -18,12 +18,15 @@ namespace MVC_BusinessEntity
         public CLlt10_estudioCompl()
         {
             this.CLIt02_archivoEstudioCompl = new HashSet<CLIt02_archivoEstudioCompl>();
+            oListArchivoEstudioCompl = new List<CLIt02_archivoEstudioCompl>();
         }
     
         public long idEstudioCompl { get; set; }
         public string descEstudioCompl { get; set; }
         public long idAtencion { get; set; }
-    
+
+        public List<CLIt02_archivoEstudioCompl> oListArchivoEstudioCompl { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIt02_archivoEstudioCompl> CLIt02_archivoEstudioCompl { get; set; }
         public virtual CLlt03_atencion CLlt03_atencion { get; set; }

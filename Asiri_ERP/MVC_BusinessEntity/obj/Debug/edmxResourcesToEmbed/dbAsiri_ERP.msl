@@ -14,7 +14,6 @@
       <EntityTypeMapping TypeName="Asiri_ERPModel.CLIt02_archivoEstudioCompl">
         <MappingFragment StoreEntitySet="CLIt02_archivoEstudioCompl">
           <ScalarProperty Name="idArchivoEstudioCompl" ColumnName="idArchivoEstudioCompl" />
-          <ScalarProperty Name="descArchivoEstudioCompl" ColumnName="descArchivoEstudioCompl" />
           <ScalarProperty Name="pathArchivo" ColumnName="pathArchivo" />
           <ScalarProperty Name="idEstudioCompl" ColumnName="idEstudioCompl" />
         </MappingFragment>
@@ -693,6 +692,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="RHUt14_turno">
+      <EntityTypeMapping TypeName="Asiri_ERPModel.RHUt14_turno">
+        <MappingFragment StoreEntitySet="RHUt14_turno">
+          <ScalarProperty Name="idTurno" ColumnName="idTurno" />
+          <ScalarProperty Name="descTurno" ColumnName="descTurno" />
+          <ScalarProperty Name="abrvTurno" ColumnName="abrvTurno" />
+          <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+          <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="fecRegistro" ColumnName="fecRegistro" />
+          <ScalarProperty Name="fecModificacion" ColumnName="fecModificacion" />
+          <ScalarProperty Name="fecEliminacion" ColumnName="fecEliminacion" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="idUsuarioModificar" ColumnName="idUsuarioModificar" />
+          <ScalarProperty Name="idUsuarioEliminar" ColumnName="idUsuarioEliminar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SISt01_parametro">
       <EntityTypeMapping TypeName="Asiri_ERPModel.SISt01_parametro">
         <MappingFragment StoreEntitySet="SISt01_parametro">
@@ -808,7 +825,6 @@
           <ScalarProperty Name="fecAnulacion" ColumnName="fecAnulacion" />
           <ScalarProperty Name="razonAnulacion" ColumnName="razonAnulacion" />
           <ScalarProperty Name="esAnulado" ColumnName="esAnulado" />
-          <ScalarProperty Name="activo" ColumnName="activo" />
           <ScalarProperty Name="fecEmision" ColumnName="fecEmision" />
           <ScalarProperty Name="fecVencimiento" ColumnName="fecVencimiento" />
           <ScalarProperty Name="fecCancelacion" ColumnName="fecCancelacion" />

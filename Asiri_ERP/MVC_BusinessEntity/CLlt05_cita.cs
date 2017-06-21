@@ -11,8 +11,7 @@ namespace MVC_BusinessEntity
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class CLlt05_cita
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,8 +24,7 @@ namespace MVC_BusinessEntity
             oListCita = new List<CLlt05_cita>();
             oListCitaDtl = new List<CLlt06_citaDtl>();
         }
-
-        
+    
         public long idCita { get; set; }
         public string codCita { get; set; }
         public System.DateTime fecCita { get; set; }

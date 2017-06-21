@@ -695,7 +695,7 @@
 											img.src = e.target.result;
 											
 										} else {
-											setImageThumb('<img id="imagen" src="'+e.target.result+'" draggable="false">');
+											setImageThumb('<img src="'+e.target.result+'" draggable="false">');
 										}
 									};
 								

@@ -25,5 +25,6 @@ namespace MVC_BusinessEntity
         public Nullable<long> idUsuarioEliminar { get; set; }
     
         public virtual RHUt01_empleado RHUt01_empleado { get; set; }
+        public virtual RHUt14_turno RHUt14_turno { get; set; }
     }
 }

@@ -11,8 +11,7 @@ namespace MVC_BusinessEntity
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class CLlt08_diagnostico
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,12 +22,10 @@ namespace MVC_BusinessEntity
         }
     
         public long idDiagnostico { get; set; }
-
-        
         public string descDiagnostico { get; set; }
         public long idAtencion { get; set; }
         public Nullable<int> idCie10 { get; set; }
-    
+
         public List<CLlt16_tratamiento> oListTratamiento { get; set; }
 
         public virtual CLlt03_atencion CLlt03_atencion { get; set; }

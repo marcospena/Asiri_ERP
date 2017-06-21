@@ -7,21 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
-//ADD
-using System.ComponentModel.DataAnnotations;
-
-//
-
 namespace MVC_BusinessEntity
 {
     using System;
     using System.Collections.Generic;
-
-    //ADD
-    [MetadataType(typeof(RHUt09_persona))]
-    //
-
+    
     public partial class RHUt09_persona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,6 +21,7 @@ namespace MVC_BusinessEntity
             this.RHUt07_paciente = new HashSet<RHUt07_paciente>();
             this.RHUt10_personaRedSocial = new HashSet<RHUt10_personaRedSocial>();
         }
+    
         public long idPersona { get; set; }
         public string nombrePersona { get; set; }
         public string apellidoPaterno { get; set; }
@@ -50,7 +41,7 @@ namespace MVC_BusinessEntity
         public string sexo { get; set; }
         public bool difunto { get; set; }
         public Nullable<System.DateTime> fecDefuncion { get; set; }
-        public string pathFoto { get; set; }
+        public byte[] pathFoto { get; set; }
         public bool activo { get; set; }
         public System.DateTime fecRegistro { get; set; }
         public Nullable<System.DateTime> fecModificacion { get; set; }

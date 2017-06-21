@@ -66,6 +66,7 @@ namespace MVC_BusinessEntity
         public virtual DbSet<RHUt11_tipoDeEmpleado> RHUt11_tipoDeEmpleado { get; set; }
         public virtual DbSet<RHUt12_tipoDocIdentidad> RHUt12_tipoDocIdentidad { get; set; }
         public virtual DbSet<RHUt13_tipoEspecialidad> RHUt13_tipoEspecialidad { get; set; }
+        public virtual DbSet<RHUt14_turno> RHUt14_turno { get; set; }
         public virtual DbSet<SISt01_parametro> SISt01_parametro { get; set; }
         public virtual DbSet<SNTt01_entidadFinanciera> SNTt01_entidadFinanciera { get; set; }
         public virtual DbSet<SNTt02_impuesto> SNTt02_impuesto { get; set; }
