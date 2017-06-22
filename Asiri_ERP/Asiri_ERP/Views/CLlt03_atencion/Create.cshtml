@@ -84,9 +84,36 @@
         $(document).ready(function () {
             
             
+            $("#form-atencion").on("submit", function () {
+                var form = $(this);
+                var Atencion = Datos();
+                
+                if (form.validate()) {
+                    form.ajaxSubmit({
+                        datatypen: 'JSON',
+                        type: 'post',
+                        data: {
+                            'cLlt03_atencion': Atencion
+                        },
+                        url: form.attr('action'),
+                        success: function (r) {
+                            if (r.respuesta) {
+                                alert(r.redirect);
+                                window.location.href = '/CLlt03_atencion/Index"';
+                            }
+                            else {
+                                $("#diagnostico-tratamiento-validacion").text(r.error).show();
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+                return false;
+            });
 
-
-            $('#tableEvolucion, #tableExamenFisico, #tableEstudioCompl').dataTable({
+            $('#tableExamenFisico, #tableEstudioCompl').dataTable({
                 ordering: false,
                 language: {
                     processing: "En curso...",
@@ -110,6 +137,38 @@
                         sortDescending: ": Habilitado para ordenar la columna en orden descendente"
                     }
                 }
+            });
+            $('#tableEvolucion').dataTable({
+                ordering: false,
+                language: {
+                    processing: "En curso...",
+                    search: "Buscar:",
+                    lengthMenu: "Visualizar _MENU_ registros",
+                    info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                    infoEmpty: "0 registros encontrados",
+                    infoFiltered: "(_MAX_ registros filtrados en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando registros...",
+                    zeroRecords: "No hay registros",
+                    emptyTable: "Vacío",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Previo  ",
+                        next: "  Siguiente",
+                        last: "Último"
+                    },
+                    aria: {
+                        sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                    }
+                },
+                "columnDefs": [
+                                    {
+                                        "targets": [1],
+                                        "visible": false,
+                                        "searchable": false
+                                    }
+                ]
             });
 
             $('#tableDiagnostico').dataTable({
@@ -149,286 +208,318 @@
 
         function AbrirArchivo()
         {
-            var numArchivo = 0;
-            for (var i = 0; i >= 0; i++) {
-                var t = $("div[id='im" + [i + 1] + "']").length;
-                if (t == 0) {
-                    t = i;
-                    numArchivo = t;
-                    break;
+            var estudioCompl = $("#descEstudioCompl").val();
+            if (estudioCompl != "") {
+                $("#datosArchivoEstudioCompl-validacion").text("Debe insertar al menos una imagen").hide();
+                $("#datosEstudioCompl-validacion").hide();
+                $("#myModalEC").modal("show");
+                var numArchivo = 0;
+                for (var i = 0; i >= 0; i++) {
+                    var t = $("div[id='im" + [i + 1] + "']").length;
+                    if (t == 0) {
+                        t = i;
+                        numArchivo = t;
+                        break;
+                    }
+
                 }
 
+                var ECdata = $("#tableEstudioCompl").dataTable().fnGetData();
+                if (numArchivo == 0) {
+                    $("#im" + numArchivo).hide();
+                    var div = document.createElement('div');
+                    div.id = "im" + [numArchivo + 1];
+                    div.innerHTML = "<input id='" + [numArchivo + 1] + "' type='file' name='files" + [numArchivo + 1] + "'/>";
+
+                    document.getElementById("archivos").appendChild(div);
+                    $('input[name="files' + [numArchivo + 1] + '"]').fileuploader({
+                        extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
+                        changeInput: ' ',
+                        theme: 'thumbnails',
+                        enableApi: true,
+                        listInput: true,
+
+                        addMore: true,
+                        thumbnails: {
+                            box: '<div class="fileuploader-items">' +
+                                      '<ul class="fileuploader-items-list">' +
+                                          '<li class="fileuploader-thumbnails-input"><div class="fileuploader-thumbnails-input-inner">+</div></li>' +
+                                      '</ul>' +
+                                  '</div>',
+                            item: '<li class="fileuploader-item">' +
+                                       '<div class="fileuploader-item-inner">' +
+                                           '<div class="thumbnail-holder" id="im" >${image}</div>' +
+                                           '<div class="actions-holder">' +
+                                               '<a id="el" class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
+                                           '</div>' +
+                                           '<div class="progress-holder">${progressBar}</div>' +
+                                       '</div>' +
+                                   '</li>',
+                            item2: '<li class="fileuploader-item">' +
+                                       '<div class="fileuploader-item-inner">' +
+                                           '<div class="thumbnail-holder">${image}</div>' +
+                                           '<div class="actions-holder">' +
+                                               '<a class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
+                                           '</div>' +
+                                       '</div>' +
+                                   '</li>',
+                            startImageRenderer: true,
+                            canvasImage: false,
+                            _selectors: {
+                                list: '.fileuploader-items-list',
+                                item: '.fileuploader-item',
+                                start: '.fileuploader-action-start',
+                                retry: '.fileuploader-action-retry',
+                                remove: '.fileuploader-action-remove'
+                            },
+                            onItemShow: function (item, listEl) {
+                                var plusInput = listEl.find('.fileuploader-thumbnails-input');
+
+                                plusInput.insertAfter(item.html);
+
+
+                                if (item.format == 'image') {
+                                    item.html.find('.fileuploader-item-icon').hide();
+
+                                }
+                            },
+                            onImageLoaded: function (itemEl, listEl, parentEl, newInputEl, inputEl) {
+                                var plusInput = listEl.find('.fileuploader-action.fileuploader-action-remove');
+                                var api = $.fileuploader.getInstance(inputEl.get(0));
+
+                            },
+                            removeConfirmation: false
+                        },
+                        afterRender: function (listEl, parentEl, newInputEl, inputEl) {
+                            var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+                                api = $.fileuploader.getInstance(inputEl.get(0));
+
+                            plusInput.on('click', function () {
+                                api.open();
+                                
+                            });
+
+                        }
+
+
+                    });
+
+
+                }
+                if (numArchivo == ECdata.length && numArchivo != 0 && ECdata.length != 0) {
+                    $("#im" + numArchivo).hide();
+                    var div = document.createElement('div');
+                    div.id = "im" + [numArchivo + 1];
+                    div.innerHTML = "<input id='" + [numArchivo + 1] + "' type='file' name='files" + [numArchivo + 1] + "'/>";
+                    document.getElementById("archivos").appendChild(div);
+                    $('input[name="files' + [numArchivo + 1] + '"]').fileuploader({
+                        extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
+                        changeInput: ' ',
+                        theme: 'thumbnails',
+                        enableApi: true,
+                        listInput: true,
+
+                        addMore: true,
+                        thumbnails: {
+                            box: '<div class="fileuploader-items">' +
+                                      '<ul class="fileuploader-items-list">' +
+                                          '<li class="fileuploader-thumbnails-input"><div class="fileuploader-thumbnails-input-inner">+</div></li>' +
+                                      '</ul>' +
+                                  '</div>',
+                            item: '<li class="fileuploader-item">' +
+                                       '<div class="fileuploader-item-inner">' +
+                                           '<div class="thumbnail-holder" id="im" >${image}</div>' +
+                                           '<div class="actions-holder">' +
+                                               '<a  id="el"class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
+                                           '</div>' +
+                                           '<div class="progress-holder">${progressBar}</div>' +
+                                       '</div>' +
+                                   '</li>',
+                            item2: '<li class="fileuploader-item">' +
+                                       '<div class="fileuploader-item-inner">' +
+                                           '<div class="thumbnail-holder">${image}</div>' +
+                                           '<div class="actions-holder">' +
+                                               '<a class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
+                                           '</div>' +
+                                       '</div>' +
+                                   '</li>',
+                            startImageRenderer: true,
+                            canvasImage: false,
+                            _selectors: {
+                                list: '.fileuploader-items-list',
+                                item: '.fileuploader-item',
+                                start: '.fileuploader-action-start',
+                                retry: '.fileuploader-action-retry',
+                                remove: '.fileuploader-action-remove'
+                            },
+                            onItemShow: function (item, listEl) {
+                                var plusInput = listEl.find('.fileuploader-thumbnails-input');
+
+                                plusInput.insertAfter(item.html);
+
+
+                                if (item.format == 'image') {
+                                    item.html.find('.fileuploader-item-icon').hide();
+
+                                }
+                            },
+                            onImageLoaded: function (itemEl, listEl, parentEl, newInputEl, inputEl) {
+                                var plusInput = listEl.find('.fileuploader-action.fileuploader-action-remove');
+                                var api = $.fileuploader.getInstance(inputEl.get(0));
+
+                            },
+                            removeConfirmation: false
+                        },
+                        afterRender: function (listEl, parentEl, newInputEl, inputEl) {
+                            var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+                                api = $.fileuploader.getInstance(inputEl.get(0));
+
+                            plusInput.on('click', function () {
+                                api.open();
+
+                            });
+
+                        }
+
+
+                    });
+                }
             }
-
-            var ECdata = $("#tableEstudioCompl").dataTable().fnGetData();
-            if (numArchivo == 0) {
-                $("#im" + numArchivo).hide();
-                var div = document.createElement('div');
-                div.id ="im"+ [numArchivo + 1];
-                div.innerHTML = "<input id='" + [numArchivo + 1] + "' type='file' name='files" + [numArchivo + 1] + "'/>";
-                
-                document.getElementById("archivos").appendChild(div);
-                $('input[name="files'+[numArchivo + 1]+'"]').fileuploader({
-                    extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
-                    changeInput: ' ',
-                    theme: 'thumbnails',
-                    enableApi: true,
-                    listInput: true,
-
-                    addMore: true,
-                    thumbnails: {
-                        box: '<div class="fileuploader-items">' +
-                                  '<ul class="fileuploader-items-list">' +
-                                      '<li class="fileuploader-thumbnails-input"><div class="fileuploader-thumbnails-input-inner">+</div></li>' +
-                                  '</ul>' +
-                              '</div>',
-                        item: '<li class="fileuploader-item">' +
-                                   '<div class="fileuploader-item-inner">' +
-                                       '<div class="thumbnail-holder" id="im" >${image}</div>' +
-                                       '<div class="actions-holder">' +
-                                           '<a class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
-                                       '</div>' +
-                                       '<div class="progress-holder">${progressBar}</div>' +
-                                   '</div>' +
-                               '</li>',
-                        item2: '<li class="fileuploader-item">' +
-                                   '<div class="fileuploader-item-inner">' +
-                                       '<div class="thumbnail-holder">${image}</div>' +
-                                       '<div class="actions-holder">' +
-                                           '<a class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
-                                       '</div>' +
-                                   '</div>' +
-                               '</li>',
-                        startImageRenderer: true,
-                        canvasImage: false,
-                        _selectors: {
-                            list: '.fileuploader-items-list',
-                            item: '.fileuploader-item',
-                            start: '.fileuploader-action-start',
-                            retry: '.fileuploader-action-retry',
-                            remove: '.fileuploader-action-remove'
-                        },
-                        onItemShow: function (item, listEl) {
-                            var plusInput = listEl.find('.fileuploader-thumbnails-input');
-
-                            plusInput.insertAfter(item.html);
-
-
-                            if (item.format == 'image') {
-                                item.html.find('.fileuploader-item-icon').hide();
-
-                            }
-                        },
-                        onImageLoaded: function (itemEl, listEl, parentEl, newInputEl, inputEl) {
-                            var plusInput = listEl.find('.fileuploader-action.fileuploader-action-remove');
-                            var api = $.fileuploader.getInstance(inputEl.get(0));
-
-                        },
-                        removeConfirmation: false
-                    },
-                    afterRender: function (listEl, parentEl, newInputEl, inputEl) {
-                        var plusInput = listEl.find('.fileuploader-thumbnails-input'),
-                            api = $.fileuploader.getInstance(inputEl.get(0));
-
-                        plusInput.on('click', function () {
-                            api.open();
-
-                        });
-
-                    }
-
-
-                });
-
-
-            }
-            if (numArchivo == ECdata.length && numArchivo != 0 && ECdata.length != 0) {
-                $("#im" + numArchivo).hide();
-                var div = document.createElement('div');
-                div.id = "im"+[numArchivo + 1];
-                div.innerHTML = "<input id='" + [numArchivo + 1] + "' type='file' name='files" + [numArchivo + 1] + "'/>";
-                document.getElementById("archivos").appendChild(div);
-                $('input[name="files' + [numArchivo + 1] + '"]').fileuploader({
-                    extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
-                    changeInput: ' ',
-                    theme: 'thumbnails',
-                    enableApi: true,
-                    listInput: true,
-
-                    addMore: true,
-                    thumbnails: {
-                        box: '<div class="fileuploader-items">' +
-                                  '<ul class="fileuploader-items-list">' +
-                                      '<li class="fileuploader-thumbnails-input"><div class="fileuploader-thumbnails-input-inner">+</div></li>' +
-                                  '</ul>' +
-                              '</div>',
-                        item: '<li class="fileuploader-item">' +
-                                   '<div class="fileuploader-item-inner">' +
-                                       '<div class="thumbnail-holder" id="im" >${image}</div>' +
-                                       '<div class="actions-holder">' +
-                                           '<a class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
-                                       '</div>' +
-                                       '<div class="progress-holder">${progressBar}</div>' +
-                                   '</div>' +
-                               '</li>',
-                        item2: '<li class="fileuploader-item">' +
-                                   '<div class="fileuploader-item-inner">' +
-                                       '<div class="thumbnail-holder">${image}</div>' +
-                                       '<div class="actions-holder">' +
-                                           '<a class="fileuploader-action fileuploader-action-remove" title="Remove"><i class="remove"></i></a>' +
-                                       '</div>' +
-                                   '</div>' +
-                               '</li>',
-                        startImageRenderer: true,
-                        canvasImage: false,
-                        _selectors: {
-                            list: '.fileuploader-items-list',
-                            item: '.fileuploader-item',
-                            start: '.fileuploader-action-start',
-                            retry: '.fileuploader-action-retry',
-                            remove: '.fileuploader-action-remove'
-                        },
-                        onItemShow: function (item, listEl) {
-                            var plusInput = listEl.find('.fileuploader-thumbnails-input');
-
-                            plusInput.insertAfter(item.html);
-
-
-                            if (item.format == 'image') {
-                                item.html.find('.fileuploader-item-icon').hide();
-
-                            }
-                        },
-                        onImageLoaded: function (itemEl, listEl, parentEl, newInputEl, inputEl) {
-                            var plusInput = listEl.find('.fileuploader-action.fileuploader-action-remove');
-                            var api = $.fileuploader.getInstance(inputEl.get(0));
-
-                        },
-                        removeConfirmation: false
-                    },
-                    afterRender: function (listEl, parentEl, newInputEl, inputEl) {
-                        var plusInput = listEl.find('.fileuploader-thumbnails-input'),
-                            api = $.fileuploader.getInstance(inputEl.get(0));
-
-                        plusInput.on('click', function () {
-                            api.open();
-
-                        });
-
-                    }
-
-
-                });
+            else {
+                $("#datosEstudioCompl-validacion").text("Debe insertar una descripción del estudio complementario").show();
             }
         }
 
         function AbrirTratamiento()
         {
-            var numTabla = 0;
-            for (var i = 0; i >= 0; i++) {
-                var t = $("#tableTratamiento" + [i + 1]).length;
-                if (t == 0) {
-                    t = i;
-                    numTabla = t;
-                    break;
+            
+            var diagnostico = $("#descDiagnostico").val();
+            var tratamiento = $("#descTratamiento").val();
+            if (diagnostico != "" && tratamiento != "") {
+                $("#datosTratamientodtl-validacion").text("Debe insertar datos al detalle del tratamiento").hide();
+                $("#diagnosticoModal-validacion").hide();
+                $("#myModal").modal("show");
+                var numTabla = 0;
+                for (var i = 0; i >= 0; i++) {
+                    var t = $("#tableTratamiento" + [i + 1]).length;
+                    if (t == 0) {
+                        t = i;
+                        numTabla = t;
+                        break;
+                    }
+
                 }
+                var tdata = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
+                var ddata = $("#tableDiagnostico").dataTable().fnGetData();
+                if (numTabla == 0) {
 
-            }
-            var tdata = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
-            var ddata = $("#tableDiagnostico").dataTable().fnGetData();
-            if (numTabla == 0) {
-
-                $("#" + numTabla).hide();
-                var div = document.createElement('div');
-                div.id = [numTabla + 1];
-                div.innerHTML = "<table style='width: 100%;' id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th><th>Eliminar</th></tr></thead><tbody></tbody></table>";
+                    $("#" + numTabla).hide();
+                    var div = document.createElement('div');
+                    div.id = [numTabla + 1];
+                    div.innerHTML = "<table style='width: 100%;' id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th><th>Eliminar</th></tr></thead><tbody></tbody></table>";
 
 
-                document.getElementById("tratamiento").appendChild(div);
-                $('#tableTratamiento' + [numTabla + 1]).dataTable({
-                    ordering: false,
-                    language: {
-                        processing: "En curso...",
-                        search: "Buscar:",
-                        lengthMenu: "Visualizar _MENU_ registros",
-                        info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                        infoEmpty: "0 registros encontrados",
-                        infoFiltered: "(_MAX_ registros filtrados en total)",
-                        infoPostFix: "",
-                        loadingRecords: "Cargando registros...",
-                        zeroRecords: "No hay registros",
-                        emptyTable: "Vacío",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Previo  ",
-                            next: "  Siguiente",
-                            last: "Último"
+                    document.getElementById("tratamiento").appendChild(div);
+                    $('#tableTratamiento' + [numTabla + 1]).dataTable({
+                        ordering: false,
+                        language: {
+                            processing: "En curso...",
+                            search: "Buscar:",
+                            lengthMenu: "Visualizar _MENU_ registros",
+                            info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                            infoEmpty: "0 registros encontrados",
+                            infoFiltered: "(_MAX_ registros filtrados en total)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando registros...",
+                            zeroRecords: "No hay registros",
+                            emptyTable: "Vacío",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Previo  ",
+                                next: "  Siguiente",
+                                last: "Último"
+                            },
+                            aria: {
+                                sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                                sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                            }
+
                         },
-                        aria: {
-                            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                        }
-                        
-                    },
-                    "columnDefs": [
-                                        {
-                                            "targets": [ 1 ],
-                                            "visible": false,
-                                            "searchable": false
-                                        },
-                                        {
-                                            "targets": [ 3 ],
-                                            "visible": false
-                                        }
-                ]
-                });
-            }
-            if (numTabla == ddata.length && numTabla != 0 && ddata.length != 0) {
+                        "columnDefs": [
+                                            {
+                                                "targets": [1],
+                                                "visible": false,
+                                                "searchable": false
+                                            },
+                                            {
+                                                "targets": [3],
+                                                "visible": false
+                                            }
+                        ]
+                    });
+                }
+                if (numTabla == ddata.length && numTabla != 0 && ddata.length != 0) {
 
-                $("#" + numTabla).hide();
-                var div = document.createElement('div');
-                div.id = [numTabla + 1];
-                div.innerHTML = "<table style='width: 100%;' id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th><th>Eliminar</th></tr></thead><tbody></tbody></table>";
+                    $("#" + numTabla).hide();
+                    var div = document.createElement('div');
+                    div.id = [numTabla + 1];
+                    div.innerHTML = "<table style='width: 100%;' id=tableTratamiento" + [numTabla + 1] + " class='table table-responsive table-striped table-bordered'> <thead style='color:#ffffff;background:#0094ff;'><tr><th>Indicacion de Servicio</th><th>ID Producto</th><th>Producto</th><th>ID Servicio</th><th>Servicio</th><th>Eliminar</th></tr></thead><tbody></tbody></table>";
 
 
-                document.getElementById("tratamiento").appendChild(div);
-                $('#tableTratamiento' + [numTabla + 1]).dataTable({
-                    ordering: false,
-                    language: {
-                        processing: "En curso...",
-                        search: "Buscar:",
-                        lengthMenu: "Visualizar _MENU_ registros",
-                        info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
-                        infoEmpty: "0 registros encontrados",
-                        infoFiltered: "(_MAX_ registros filtrados en total)",
-                        infoPostFix: "",
-                        loadingRecords: "Cargando registros...",
-                        zeroRecords: "No hay registros",
-                        emptyTable: "Vacío",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Previo  ",
-                            next: "  Siguiente",
-                            last: "Último"
+                    document.getElementById("tratamiento").appendChild(div);
+                    $('#tableTratamiento' + [numTabla + 1]).dataTable({
+                        ordering: false,
+                        language: {
+                            processing: "En curso...",
+                            search: "Buscar:",
+                            lengthMenu: "Visualizar _MENU_ registros",
+                            info: "_START_ de _END_ registros de un total de _TOTAL_ registros",
+                            infoEmpty: "0 registros encontrados",
+                            infoFiltered: "(_MAX_ registros filtrados en total)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando registros...",
+                            zeroRecords: "No hay registros",
+                            emptyTable: "Vacío",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Previo  ",
+                                next: "  Siguiente",
+                                last: "Último"
+                            },
+                            aria: {
+                                sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
+                                sortDescending: ": Habilitado para ordenar la columna en orden descendente"
+                            }
                         },
-                        aria: {
-                            sortAscending: ": Habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": Habilitado para ordenar la columna en orden descendente"
-                        }
-                    },
-                    "columnDefs": [
-                                        {
-                                            "targets": [ 1 ],
-                                            "visible": false,
-                                            "searchable": false
-                                        },
-                                        {
-                                            "targets": [ 3 ],
-                                            "visible": false,
-                                            "searchable": false
-                                        }
-                    ]
-                });
+                        "columnDefs": [
+                                            {
+                                                "targets": [1],
+                                                "visible": false,
+                                                "searchable": false
+                                            },
+                                            {
+                                                "targets": [3],
+                                                "visible": false,
+                                                "searchable": false
+                                            }
+                        ]
+                    });
+                }
+            }
+            else
+            {
+                if (diagnostico == "")
+                {
+                    $("#diagnosticoModal-validacion").text("Debe insertar un diagnostico").show();
+                }
+                if (tratamiento == "")
+                {
+                    $("#diagnosticoModal-validacion").text("Debe insertar un tratamiento").show();
+                }
+                if(diagnostico == "" && tratamiento == "")
+                {
+                    $("#diagnosticoModal-validacion").text("Debe insertar un diagnostico y un tratamiento").show();
+                }
             }
         }
 
@@ -459,7 +550,7 @@
                                                           nombreProducto,
                                                           $("#idServicio").val(),
                                                           nombreServicio,
-            "<button class='btn btn-danger' id='eliminarTratamiento' alt=" + [numTablaTrat.length + 1] + "><i class='fa fa-lg fa-trash'></i></button>"]);
+            "<button class='btn btn-danger' id='eliminarTratamientoDtl' alt=" + [numTablaTrat.length + 1] + "><i class='fa fa-lg fa-trash'></i></button>"]);
             
 
             $("#indicacionServicio").val("");
@@ -472,7 +563,7 @@
         function AgregarDiagnosticoTratamiento()
         {
             var numTabla = 0;
-            
+
             for (var i = 0; i >= 0; i++) {
                 var t = $("#tableTratamiento" + [i + 1]).length;
                 if (t == 0) {
@@ -482,58 +573,154 @@
                 }
 
             }
-            var comboCie10 = document.getElementById("idCie10");
-            var indice = comboCie10.selectedIndex;
-            var nombreCi10 = comboCie10.options[comboCie10.selectedIndex].text;
-            
-            var numTablaTrat = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
-            var numTablaDiag = $("#tableDiagnostico").dataTable().fnGetData();
-            var eliminar = document.getElementById("eliminar");
-            $("#tableDiagnostico").dataTable().fnAddData([$("#idCie10").val(),
-                                                      nombreCi10,
-                                                      $("#descDiagnostico").val(),
-                                                      $("#descTratamiento").val(),
-            "<button class='btn btn-info' id='detalle' alt=" + [numTablaDiag.length + 1] + "><i class='fa fa-lg fa-search-plus'></i></button> " +
-            "<button class='btn btn-danger' id='eliminar' alt="+[numTablaDiag.length+1]+"><i class='fa fa-lg fa-trash'></i></button>"]);
-            
-            
-            comboCie10.selectedIndex = 0;
-            $("#descDiagnostico").val("");
-            $("#descTratamiento").val("");
+            var tablaDetalle = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
+            if (tablaDetalle.length != 0) {
+                
+                var comboCie10 = document.getElementById("idCie10");
+                var indice = comboCie10.selectedIndex;
+                var nombreCi10 = comboCie10.options[comboCie10.selectedIndex].text;
+
+                var numTablaTrat = $("#tableTratamiento" + numTabla).dataTable().fnGetData();
+                var numTablaDiag = $("#tableDiagnostico").dataTable().fnGetData();
+                var eliminar = document.getElementById("eliminar");
+                $("#tableDiagnostico").dataTable().fnAddData([$("#idCie10").val(),
+                                                          nombreCi10,
+                                                          $("#descDiagnostico").val(),
+                                                          $("#descTratamiento").val(),
+                "<button class='btn btn-info' id='detalle' alt=" + [numTablaDiag.length + 1] + "><i class='fa fa-lg fa-search-plus'></i></button> " +
+                "<button class='btn btn-danger' id='eliminar' alt=" + [numTablaDiag.length + 1] + "><i class='fa fa-lg fa-trash'></i></button>"]);
+
+
+                comboCie10.selectedIndex = 0;
+                $("#descDiagnostico").val("");
+                $("#descTratamiento").val("");
+                $("#myModal").modal("hide");
+
+            }
+            else
+            {
+                $("#datosTratamientodtl-validacion").text("Debe insertar datos al detalle del tratamiento").show();
+            }
         }
 
-        
+        //Agregar Evolucion
         function AgregarEvolucion() {
+            var evolucion = $("#descEvolucion").val();
+            if (evolucion != "") {
+                $("#datosEvolucion-validacion").hide();
+                var numTablaEvolucion = $("#tableEvolucion").dataTable().fnGetData();
+                var condicion = $("input[name='optionsRadios']:checked").val();
+                var numCondicion = $("input[name='optionsRadios']:checked").attr("id");
+                
+                $("#tableEvolucion").dataTable().fnAddData([
+                                                          $("#descEvolucion").val(),
+                                                          numCondicion,
+                                                          condicion,
+                                                          "<button class='btn btn-danger' id='eliminarEvolucion' alt=" + [numTablaEvolucion.length + 1] + "><i class='fa fa-lg fa-trash'></i></button>"
+                                                          ]);
 
-            $("#tableEvolucion").dataTable().fnAddData([
-                                                      $("#descEvolucion").val(),
-                                                      "condicion"]);
 
+                $("#descEvolucion").val("");
+            }
+            else {
+                $("#datosEvolucion-validacion").text("Debe insertar una descripcion de la evolución").show();
+            }
 
-            $("#descEvolucion").val("");
         }
+
+        //Agregar Estudio Complementario
 
         function AgregarEstudioCompl() {
+            
+            var numArchivo = 0;
+            for (var i = 0; i >= 0; i++) {
+                var t = $("div[id='im" + [i + 1] + "']").length;
+                if (t == 0) {
+                    t = i;
+                    numArchivo = t;
+                    break;
+                }
+            }
+            
+            var imagenesEC = $("div[id='im" + numArchivo + "']").find("img").length;
+            
+            if (imagenesEC != 0) {
+                var numTablaEstudioCompl = $("#tableEstudioCompl").dataTable().fnGetData();
+                $("#tableEstudioCompl").dataTable().fnAddData([
+                                                          $("#descEstudioCompl").val(),
+                                                          "<a class='btn btn-info' onclick='ModalDetalle($(this))'  id='detalleEstudioCompl' alt=" + [numTablaEstudioCompl.length + 1] + " ><i class='fa fa fa-search-plus'></i> </a>&nbsp" +
+                                                          "<button class='btn btn-danger' id='eliminarEstudioCompl' alt=" + [numTablaEstudioCompl.length + 1] + "><i class='fa fa-lg fa-trash'></i></button>"
+                                                          ]);
 
-            $("#tableEstudioCompl").dataTable().fnAddData([
-                                                      $("#descEstudioCompl").val()]);
 
-
-            $("#descEstudioCompl").val("");
+                $("#descEstudioCompl").val("");
+                $("#myModalEC").modal("hide");
+            }
+            else {
+                $("#datosArchivoEstudioCompl-validacion").text("Debe insertar al menos una imagen").show();
+            }
+            
         }
+
+        //Agregar Examen Fisico
 
         function AgregarExamenFisico() {
+            var examenFisico = $("#descExamenFisico").val();
+            
+            if (examenFisico != "") {
+                var numTablaExamenFisico = $("#tableExamenFisico").dataTable().fnGetData();
+                $("#datosExamenFisico-validacion").hide();
+                $("#tableExamenFisico").dataTable().fnAddData([
+                                                          $("#descExamenFisico").val(),
+                                                          "<button class='btn btn-danger' id='eliminarExamenFisico' alt=" + [numTablaExamenFisico.length + 1] + "><i class='fa fa-lg fa-trash'></i></button>"
+                                                          ]);
 
-            $("#tableExamenFisico").dataTable().fnAddData([
-                                                      $("#descExamenFisico").val()]
-                                                      );
 
-
-            $("#descExamenFisico").val("");
+                $("#descExamenFisico").val("");
+            }
+            else {
+                $("#datosExamenFisico-validacion").text("Debe insertar una descripcion del examen físico").show();
+            }
         }
 
+        //Eliminar Tratamiento Detalle
+        $(document).on("click", "#eliminarTratamientoDtl", function (event) {
+            
+            var alt = $(this).attr("alt");
+            var tabletdtl = $(this).parents('table').attr('id');
+            $("#" + tabletdtl).dataTable().fnDeleteRow(alt - 1);
 
+
+            var tablaTratamiento = $("#" + tabletdtl).dataTable().fnGetData();
+            var count = tablaTratamiento.length + 1;
+
+            for (var i = 1; i > 0; i++) {
+                if (i == alt) {
+                    for (var j = alt; j <= count; j++) {
+                        if (alt != count) {
+                            $("#" + tabletdtl).find("button[alt = " + j + "]").attr("alt", [j - 1]);
+                        }
+                        else {
+
+                            break;
+
+                        }
+                    }
+
+                    alert("se eliminó Correctamente");
+                    break;
+
+                }
+                else {
+                    $("#" + tabletdtl).find("button[alt = " + i + "]").attr("alt", i);
+                }
+
+            }
+
+        });
         
+
+        //Eliminar Diagnostico-Tratamiento
 
         $(document).on("click", "#eliminar", function (event) {
             var alt = $(this).attr("alt");
@@ -548,7 +735,7 @@
                 if (i == alt) {
                     for (var j = alt; j <= count; j++) {
                         if (alt != count) {
-                            $("button[alt = " + j + "]").attr("alt", [j - 1]);
+                            $("#tableDiagnostico").find("button[alt = " + j + "]").attr("alt", [j - 1]);
                             
                             $("div[id = " + j + "]").attr("id", [j - 1]);
                             
@@ -568,7 +755,7 @@
                 }
                 else
                 {
-                    $("button[alt = " + i + "]").attr("alt", i);
+                    $("#tableDiagnostico").find("button[alt = " + i + "]").attr("alt", i);
                     $("div[id = " + i + "]").attr("id", i);
                     $("table[id = tableTratamiento" + i + "]").attr("id", "tableTratamiento" + i);
                 }
@@ -580,17 +767,186 @@
         });
 
 
+        //Eliminar Evolucion
+        $(document).on("click", "#eliminarEvolucion", function (event) {
+            var alt = $(this).attr("alt");
+            $("#tableEvolucion" ).dataTable().fnDeleteRow(alt - 1);
+
+            var tablaEvolucion = $("#tableEvolucion").dataTable().fnGetData();
+            var count = tablaEvolucion.length + 1;
+
+            for (var i = 1; i > 0; i++) {
+                if (i == alt) {
+                    for (var j = alt; j <= count; j++) {
+                        if (alt != count) {
+                            $("#tableEvolucion").find("button[alt = " + j + "]").attr("alt", [j - 1]);
+                        }
+                        else {
+
+                            break;
+
+                        }
+                    }
+
+                    alert("se eliminó Correctamente");
+                    break;
+
+                }
+                else {
+                    $("#tableEvolucion").find("button[alt = " + i + "]").attr("alt", i);
+                }
+
+            }
+
+        });
+
+
+        //Eliminar Examen Fisico
+        $(document).on("click", "#eliminarExamenFisico", function (event) {
+            var alt = $(this).attr("alt");
+            $("#tableExamenFisico").dataTable().fnDeleteRow(alt - 1);
+
+            var tablaEvolucion = $("#tableExamenFisico").dataTable().fnGetData();
+            var count = tablaEvolucion.length + 1;
+
+            for (var i = 1; i > 0; i++) {
+                if (i == alt) {
+                    for (var j = alt; j <= count; j++) {
+                        if (alt != count) {
+                            $("#tableExamenFisico").find("button[alt = " + j + "]").attr("alt", [j - 1]);
+                        }
+                        else {
+
+                            break;
+
+                        }
+                    }
+
+                    alert("se eliminó Correctamente");
+                    break;
+
+                }
+                else {
+                    $("#tableExamenFisico").find("button[alt = " + i + "]").attr("alt", i);
+                }
+
+            }
+
+        });
+
+        //Eliminar Estudio Complementario
+
+        $(document).on("click", "#eliminarEstudioCompl", function (event) {
+            var alt = $(this).attr("alt");
+            $("#tableEstudioCompl").dataTable().fnDeleteRow(alt - 1);
+            $("div[id = 'im" + alt + "']").remove();
+
+
+            var tablaEstudioCompl = $("#tableEstudioCompl").dataTable().fnGetData();
+            var count = tablaEstudioCompl.length + 1;
+
+            for (var i = 1; i > 0; i++) {
+                if (i == alt) {
+                    for (var j = alt; j <= count; j++) {
+                        if (alt != count) {
+                            $("#tableEstudioCompl").find("button[alt = " + j + "]").attr("alt", [j - 1]);
+                            $("#tableEstudioCompl").find("a[alt = " + j + "]").attr("alt", [j - 1]);
+                            $("div[id = 'im" + j + "']").find("input[type=file]").attr("id", [j - 1]);
+                            $("div[id = 'im" + j + "']").find("input[type=file]").attr("name", "files" + [j - 1]);
+                            $("div[id = 'im" + j + "']").attr("id", "im" + [j - 1]);
+                            
+
+                            
+                        }
+                        else {
+
+                            break;
+
+                        }
+                    }
+
+                    alert("se eliminó Correctamente");
+                    break;
+
+                }
+                else {
+                    $("#tableEstudioCompl").find("button[alt = " + i + "]").attr("alt", i);
+                    $("#tableEstudioCompl").find("a[alt = " + i + "]").attr("alt", i);
+                    $("div[id = 'im" + i + "']").find("input[type=file]").attr("id", i);
+                    $("div[id = 'im" + i + "']").find("input[type=file]").attr("name", "files" + i);
+                    $("div[id = 'im" + i + "']").attr("id", "im" + i);
+                    
+                    
+                }
+
+            }
+            $("div[id = 'im" + [count + 1] + "']").find("input[type=file]").attr("id", count);
+            $("div[id = 'im" + [count + 1] + "']").find("input[type=file]").attr("name", "files" + count);
+            $("div[id = 'im" + [count + 1] + "']").attr("id", "im" + count);
+            
+            
+        });
+
+        //Modal Detalle Estudio Complementario
+        function ModalDetalle(alt) {
+            
+            $("#myModalDEC").modal("show");
+            var numArchivo = $(alt).attr("alt");
+            var countArchivo = $("#imagenes").children("div").length;
+            
+            $("#imagenes").children("div").remove();
+            
+            
+            
+            $("#archivos").find("#im" + numArchivo).clone().appendTo("#imagenes");
+            $("#imagenes").find("div[id='im" + numArchivo+"']").attr("id", "imdtl" + numArchivo);
+            
+               
+                    $("#imagenes").find("div[id='imdtl"+numArchivo+"']").find('input[name="files' + numArchivo + '"]').fileuploader({
+                    extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
+                    changeInput: ' ',
+                    theme: 'thumbnails',
+                    enableApi: true,
+                    thumbnails: {
+                        afterRender: function (listEl, parentEl, newInputEl, inputEl) {
+                            var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+                                api = $.fileuploader.getInstance(inputEl.get(0));
+
+                            plusInput.on('click', function () {
+                                api.disable('.fileuploader-thumbnails-input');
+                                
+                            });
+
+                        },
+                        onRemove: function (item, listEl, parentEl, newInputEl, inputEl) {
+                            // callback will go here
+
+                            return false;
+                        },
+                        removeConfirmation: false
+                    }
+
+
+                    });
+                    $("#imagenes").find("a").remove();
+            
+                    $("div[id='imdtl" + numArchivo + "']").show();
+        }
+
+
+
+
         //ENVIAR ATENCION A CONTROLLER
-        function EnviarAtencion()
-        {
+        function Datos() {
+
             var Atencion = { "codAtencion": "", "idCita": "", "oListEvolucion": [], "oListDiagnostico": [], "oAnamnesis": { "descAnamnesis": "" }, "oListEstudioCompl": [], "oFuncionVital": { "sistole": "", "diastole": "", "pulsasion": "", "ritmoRespiratorio": "", "temperatura": "", "altura": "", "peso": "", "imc": "" }, "oListExamenFisico": [] };
-            var Evolucion = { "descEvolucion": "" };
+            var Evolucion = { "descEvolucion": "", "idAtencion":"" };
             var Diagnostico = { "idCie10": "", "descDiagnostico": "", "oListTratamiento": [] };
             var Tratamiento = { "descTratamiento": "", "oListTratamientoDtl": [] };
-            var TratamientoDtl = { "indicacionServicio": "","idProducto": "", "idServicio": ""};
+            var TratamientoDtl = { "indicacionServicio": "", "idProducto": "", "idServicio": "" };
             var EstudioCompl = { "descEstudioCompl": "", "oListArchivoEstudioCompl": [] };
             var ArchivoEstudioCompl = { "pathArchivo": "" };
-            
+
             var ExamenFisico = { "descExamenFisico": "" };
 
             //Atencion
@@ -616,7 +972,7 @@
                     TratamientoDtl.idServicio = tablaTratamiento[j][3];
                     Tratamiento.oListTratamientoDtl.push(TratamientoDtl);
                     TratamientoDtl = { "indicacionServicio": "", "idProducto": "", "idServicio": "" };
-                    
+
                 }
                 Diagnostico.oListTratamiento.push(Tratamiento);
                 Tratamiento = { "descTratamiento": "", "oListTratamientoDtl": [] };
@@ -641,35 +997,35 @@
             for (var i = 0; i < tablaEvolucion.length; i++) {
 
                 Evolucion.descEvolucion = tablaEvolucion[i][0];
+                Evolucion.idAtencion = tablaEvolucion[i][1];
                 Atencion.oListEvolucion.push(Evolucion);
-                Evolucion = { "descEvolucion": "" };
+                Evolucion = { "descEvolucion": "", "idAtencion": "" };
             }
 
             //Estudio Complementario
 
             var tablaEstudioCompl = $("#tableEstudioCompl").dataTable().fnGetData();
             var imgCount = 0;
-            
+
             for (var i = 0; i >= 0; i++) {
                 var t = $("div").find("img[id='" + [i + 1] + "']").length;
-                
+
                 if (t == 0) {
                     t = i;
                     imgCount = t;
-                    
+
                     break;
                 }
 
             }
             for (var i = 0; i < tablaEstudioCompl.length; i++) {
-                alert(i + 1);
                 EstudioCompl.descEstudioCompl = tablaEstudioCompl[i][0];
                 var countImg = $("div[id='im" + [i + 1] + "']").find("img").length;
-                
+
                 for (var j = 0; j < countImg; j++) {
-                    
+
                     ArchivoEstudioCompl.pathArchivo = Base64.encode($("div[id='im" + [i + 1] + "'").find('img[id=' + [j + 1] + ']').attr('src'));
-                    
+
                     EstudioCompl.oListArchivoEstudioCompl.push(ArchivoEstudioCompl);
                     ArchivoEstudioCompl = { "pathArchivo": "" };
 
@@ -697,31 +1053,35 @@
                 Atencion.oListExamenFisico.push(ExamenFisico);
                 ExamenFisico = { "descExamenFisico": "" };
             }
-            
-            
-            
-            
-            $.ajax(
-            {
-                url: '/CLlt03_atencion/CreateAtencion',
-                data: {
-                    __RequestVerificationToken: gettoken(),
-                    cLlt03_atencion: Atencion
-                    
-                },
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-                dataType: 'json',
-                success: function (result) {
-                    if (result.Success == "1") {
-                        window.location.href = "/CLlt03_atencion/Index";
-                    }
-                    else {
-                        alert(result.ex);
-                    }
-                }
-            });
+
+
+
+
+            //$.ajax(
+            //{
+            //    url: '/CLlt03_atencion/CreateAtencion',
+            //    data: {
+            //        __RequestVerificationToken: gettoken(),
+            //        cLlt03_atencion: Atencion
+
+            //    },
+            //    type: 'POST',
+            //    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            //    dataType: 'json',
+            //    success: function (result) {
+            //        if (result.Success == "1") {
+            //            window.location.href = "/CLlt03_atencion/Index";
+            //        }
+            //        else {
+            //            alert(result.ex);
+            //        }
+            //    }
+            //});
+            return Atencion;
         }
+
+
+        //Convertir String a Byte
         String.prototype.toBin = function () {
             function binario(x, posi) {
                 if (posi > 0) return binario(parseInt(x / 2), posi - 1) + (x % 2).toString();
@@ -732,6 +1092,10 @@
                 cadena += binario(this.charCodeAt(i), 7);
             return cadena;
         }
+
+
+       
+
 
         //Obtener Token
         function gettoken() {
@@ -1095,7 +1459,7 @@
 
 
                                         </ul>
-
+                                        <form id="form-atencion" name="atencion" method="post" action="/CLlt03_atencion/CreateAtencion">
                                         <div id="myTabContent" class="tab-content">
                                             <!--INFOBASICA-->
                                             <div role="tabpanel" class="tab-pane fade in active" id="tab1" aria-labelledby="home-tab">
@@ -1103,7 +1467,7 @@
                                                     <div class="col-lg-10">
                                                         <div class="card">
 
-                                                            <form>
+                                                            
                                                                 <h3>Inf. Básica</h3>
                                                                 <!--ASUNTO-->
                                                                 <div class="form-group">
@@ -1161,7 +1525,7 @@
                                                                 <!--MEDICODETURNO-->
 
 
-                                                            </form>
+                                                            
 
 
 
@@ -1193,8 +1557,9 @@
 
                                                                 <div class="card col-md-12">
                                                                     <h3 class="card-title">Inf. Diagnostico </h3>
+                                                                    <div style="text-align:center;"> @Html.ValidationMessage("diagnosticoModal", "", new { @class = "text-danger", id = "diagnosticoModal-validacion" })</div>
                                                                     <div class="card-body">
-                                                                        <form class="form-horizontal">
+                                                                        
                                                                             
                                                                             <div class="form-group col-md-5">
                                                                                 <label class="control-label col-md-2">CIE10</label>
@@ -1229,7 +1594,7 @@
                                                                             &nbsp;&nbsp;&nbsp;
                                                                             <div class="col-md-2">
 
-                                                                                <button id="AgregarTrat" type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal" onclick="AbrirTratamiento()">
+                                                                                <button id="AgregarTrat" type="button" class="btn btn-success " data-target="#myModal" onclick="AbrirTratamiento()">
                                                                                     <i class="fa fa-fw fa-lg fa-plus">
                                                                                     </i>
                                                                                 </button>
@@ -1237,13 +1602,13 @@
 
                                                                             </div>
 
-                                                                        </form>
+                                                                        
                                                                     </div>
                                                                 </div>
 
 
                                                                 <div style="text-align:center;">
-                                                                    <form class="form-inline"></form>
+                                                                    
                                                                 </div>
                                                                 <div class="modal fade" id="myModal" role="dialog">
                                                                     <div class="modal-dialog modal-lg">
@@ -1257,7 +1622,7 @@
                                                                             <div class="modal-body">
                                                                                 <div class="card col-md-12">
                                                                                     <div class="card-content">
-                                                                                        <form class="form-horizontal">
+                                                                                        
                                                                                             
                                                                                             <div class="form-group col-md-5">
                                                                                                 <label class="control-label col-md-2">Indicacion</label>
@@ -1306,14 +1671,15 @@
                                                                                             </div>
 
 
-                                                                                        </form>
+                                                                                        
                                                                                     </div>
 
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
+                                                                                <div style="text-align:left;">@Html.ValidationMessage("datosTratamientodtl", "", new { @class = "text-danger", id = "datosTratamientodtl-validacion" })</div>
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;
-                                                                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="AgregarDiagnosticoTratamiento()">Agregar Tratamiento </button>
+                                                                                <button type="button" class="btn btn-primary"  onclick="AgregarDiagnosticoTratamiento()">Agregar Tratamiento </button>
 
                                                                             </div>
                                                                         </div>
@@ -1350,6 +1716,8 @@
 
                                                                     </div>
                                                                 </div>
+
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1360,7 +1728,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-10">
                                                         <div class="card">
-                                                            <form id="InfAtension">
+                                                            
                                                                 <!--FECHAREGISTRO-->
                                                                 <div class="form-group">
                                                                     <label class="control-label">Fecha de Registro</label>
@@ -1400,7 +1768,7 @@
                                                                     <label class="control-label">Nota</label>
                                                                     <textarea class="form-control" rows="4" placeholder="Ingresar nota" disabled></textarea>
                                                                 </div>
-                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1411,7 +1779,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-10">
                                                         <div class="card-content">
-                                                            <form id="InfFuncionVital">
+                                                            
                                                                 <!--SISTOLE-->
                                                                 <div class="form-group col-md-3">
                                                                     <label class="control-label">Sistole</label>
@@ -1455,7 +1823,7 @@
                                                                 <!--FECHAREGISTRO-->
 
 
-                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1466,7 +1834,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-10">
                                                         <div class="card">
-                                                            <form id="InfEvolucion">
+                                                            
                                                                 <!--DESCRIPCCION-->
                                                                 <div class="form-group">
                                                                     <label class="control-label">Descripción</label>
@@ -1481,27 +1849,27 @@
                                                                             <div class="animated-radio-button">
                                                                                 <!--PESIMO-->
                                                                                 <label>
-                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option1"><span class="label-text">Pésimo</span>
+                                                                                    <input id="1" type="radio" name="optionsRadios" value="Pésimo"><span class="label-text">Pésimo</span>
                                                                                 </label>
                                                                                 <label for="" style="width: 30px;"></label>
                                                                                 <!--MALO-->
                                                                                 <label>
-                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2"><span class="label-text">Malo</span>
+                                                                                    <input id="2" type="radio" name="optionsRadios" value="Malo"><span class="label-text">Malo</span>
                                                                                 </label>
                                                                                 <label for="" style="width: 30px;"></label>
                                                                                 <!--REGULAR-->
                                                                                 <label>
-                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2"><span class="label-text">Regular</span>
+                                                                                    <input id="3" type="radio" name="optionsRadios" value="Regular" checked="checked"><span class="label-text">Regular</span>
                                                                                 </label>
                                                                                 <label for="" style="width: 30px;"></label>
                                                                                 <!--BUENO-->
                                                                                 <label>
-                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2" checked="checked"><span class="label-text">Bueno</span>
+                                                                                    <input id="4" type="radio" name="optionsRadios" value="Bueno" ><span class="label-text">Bueno</span>
                                                                                 </label>
                                                                                 <label for="" style="width: 30px;"></label>
                                                                                 <!--EXCELENTE-->
                                                                                 <label>
-                                                                                    <input id="optionsRadios1" type="radio" name="optionsRadios" value="option2"><span class="label-text">Excelente</span>
+                                                                                    <input id="5" type="radio" name="optionsRadios" value="Excelente"><span class="label-text">Excelente</span>
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -1509,12 +1877,19 @@
                                                                 </div>
 
                                                                 <input type="button" class="btn btn-success" value="Agregar Evolucion" onclick="AgregarEvolucion()" />
+                                                                @Html.ValidationMessage("datosEvolucion", "", new { @class = "text-danger", id = "datosEvolucion-validacion" })
+                                                                
+                                                                </br>
+                                                                </br>
+                                                                </br>
 
-                                                                <table id="tableEvolucion" class="table table-responsive table-striped table-bordered">
+                                                                <table id="tableEvolucion" style="width:100%" class="table table-responsive table-striped table-bordered">
                                                                     <thead style="color:#ffffff;background:#0094ff;">
                                                                         <tr>
                                                                             <th>Evolucion</th>
+                                                                            <th></th>
                                                                             <th>Condicion</th>
+                                                                            <th>Eliminar</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -1531,7 +1906,7 @@
                                                                 </table>
 
 
-                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1542,7 +1917,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-10">
                                                         <div class="card">
-                                                            <form id="InfExamenFisico">
+                                                            
                                                                 <!--DESCRIPCCION-->
                                                                 <div class="form-group">
                                                                     <label class="control-label">Descripción</label>
@@ -1551,11 +1926,15 @@
                                                                 </div>
 
                                                                 <input type="button" value="Agregar Examen Fisico" onclick="AgregarExamenFisico()" />
-
+                                                                @Html.ValidationMessage("datosExamenFisico", "", new { @class = "text-danger", id = "datosExamenFisico-validacion" })
+                                                                </br>
+                                                                </br>
+                                                                </br>
                                                                 <table id="tableExamenFisico" class="table table-responsive table-striped table-bordered">
                                                                     <thead style="color:#ffffff;background:#0094ff;">
                                                                         <tr>
                                                                             <th>Examen Fisico</th>
+                                                                            <th>Eliminar</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -1571,7 +1950,7 @@
                                                                     </tbody>
                                                                 </table>
 
-                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1583,23 +1962,27 @@
                                                 <div class="row">
                                                     <div class="col-lg-10">
                                                         <div class="card">
-                                                            <form id="InfEstudioComplementario">
+                                                            
                                                                 <!--Desc EstudioComplementario-->
                                                                 <div class="form-group">
                                                                     <label class="control-label">Descripción</label>
                                                                     @Html.Editor("descEstudioCompl", new { htmlAttributes = new { @class = "form-control" } })
                                                                 </div>
+                                                                <!--Abrir Modal Estudio Complementario-->
                                                                 <div class="col-md-2">
 
-                                                                    <button id="AgregarEC" type="button" onclick="AbrirArchivo()" class="btn btn-success " data-toggle="modal" data-target="#myModalEC">
+                                                                    <button id="AgregarEC" type="button" onclick="AbrirArchivo()" class="btn btn-success "  data-target="#myModalEC">
                                                                         <i class="fa fa-fw fa-lg fa-plus">
                                                                         </i>
                                                                     </button>
 
 
                                                                 </div>
-                                                                <!--Abrir Modal Estudio Complementario-->
-                                                                <input type="button" value="Agregar Estudio Complementario" onclick="AgregarEstudioCompl()" />
+                                                                
+                                                                @Html.ValidationMessage("datosEstudioCompl", "", new { @class = "text-danger", id = "datosEstudioCompl-validacion" })
+                                                            </br>
+                                                            </br>
+                                                            </br>
 
 
 
@@ -1608,6 +1991,7 @@
                                                                     <thead style="color:#ffffff;background:#0094ff;">
                                                                         <tr>
                                                                             <th>Estudio Complementario</th>
+                                                                            <th>Eliminar</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -1623,7 +2007,7 @@
                                                                     </tbody>
                                                                 </table>
 
-                                                            </form>
+                                                            
 
 
 
@@ -1650,8 +2034,40 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
+                                                                            @Html.ValidationMessage("datosArchivoEstudioCompl", "", new { @class = "text-danger", id = "datosArchivoEstudioCompl-validacion" })
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;
-                                                                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="archivosEC" onclick="AgregarEstudioCompl()">Agregar Archivos </button>
+                                                                            <button type="button" class="btn btn-primary"  id="archivosEC" onclick="AgregarEstudioCompl()">Agregar Archivos </button>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Modal Detalle Estudio Complementario-->
+                                                            <div class="modal fade" id="myModalDEC" role="dialog">
+                                                                <div class="modal-dialog modal-lg">
+
+                                                                    <!-- Modal content-->
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" data-target="#myModalDEC" class="close" data-dismiss="modal">&times;</button>
+                                                                            <h4 class="modal-title">Archivos De Estudios Complementarios</h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="card col-md-12">
+                                                                                <div class="card-content">
+                                                                                    <div id="imagenes">
+
+                                                                                    </div>
+
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
 
                                                                         </div>
                                                                     </div>
@@ -1676,16 +2092,18 @@
 
                                         <div class="card" style="text-align: center;">
                                             <div class="card-body">
-                                                <form class="form-inline">
-                                                    <div class="row">
+                                                
+                                                    <div class="row" >
                                                         <div class="col-lg-10">
-                                                            <input type="button" value="Create" onclick="EnviarAtencion()" class="btn btn-default" />
+                                                            <input type="submit" value="Create"  class="btn btn-default" />
+                                                            </br>
+                                                            <div style="text-align:center;"> @Html.ValidationMessage("diagnostico-tratamiento", "", new { @class = "text-danger", id = "diagnostico-tratamiento-validacion" })</div>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                
                                             </div>
                                         </div>
-
+                                        </form>
                                     </div>
                                 </div>
                             </div>

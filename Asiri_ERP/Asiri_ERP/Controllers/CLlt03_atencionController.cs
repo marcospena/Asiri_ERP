@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_BusinessEntity;
+using System.Transactions;
 
 namespace Asiri_ERP.Controllers
 {
@@ -85,20 +86,26 @@ namespace Asiri_ERP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public JsonResult CreateAtencion(CLlt03_atencion cLlt03_atencion)
         {
-            if (ModelState.IsValid)
+            var respuesta = new ResponseModel
             {
-                try
+                respuesta = true,
+                redirect = "/CLlt03_atencion/Create/" + cLlt03_atencion.idCita,
+                error = ""
+            };
+            cLlt03_atencion.idUsuario = 1;
+            cLlt03_atencion.fecRegistro = DateTime.Now;
+            
+            if (cLlt03_atencion.oListDiagnostico.Count != 0 && ModelState.IsValid)
+            {
+                using (TransactionScope ts = new TransactionScope())
                 {
-
                     //Atencion
-
-                    cLlt03_atencion.idUsuario = 1;
-                    cLlt03_atencion.fecRegistro = DateTime.Now;
                     db.CLlt03_atencion.Add(cLlt03_atencion);
                     db.SaveChanges();
+                    
                     //var ultimaAtencion = db.CLlt03_atencion.OrderByDescending(x => x.idAtencion).Take(1).ToList();
 
                     //Diagnostico y Tratamiento
@@ -147,9 +154,35 @@ namespace Asiri_ERP.Controllers
                     //Evolucion
                     if (cLlt03_atencion.oListEvolucion.Count != 0)
                     {
+                        
                         CLlt11_evolucion oCLlt11_evolucion = new CLlt11_evolucion();
                         for (int i = 0; i < cLlt03_atencion.oListEvolucion.Count; i++)
                         {
+                            oCLlt11_evolucion.pesimo = false;
+                            oCLlt11_evolucion.malo = false;
+                            oCLlt11_evolucion.regular = false;
+                            oCLlt11_evolucion.bueno = false;
+                            oCLlt11_evolucion.excelente = false;
+                            if (cLlt03_atencion.oListEvolucion[i].idAtencion == 1)
+                            {
+                                oCLlt11_evolucion.pesimo = true;
+                            }
+                            if (cLlt03_atencion.oListEvolucion[i].idAtencion == 2)
+                            {
+                                oCLlt11_evolucion.malo = true;
+                            }
+                            if (cLlt03_atencion.oListEvolucion[i].idAtencion == 3)
+                            {
+                                oCLlt11_evolucion.regular = true;
+                            }
+                            if (cLlt03_atencion.oListEvolucion[i].idAtencion == 4)
+                            {
+                                oCLlt11_evolucion.bueno = true;
+                            }
+                            if (cLlt03_atencion.oListEvolucion[i].idAtencion == 5)
+                            {
+                                oCLlt11_evolucion.excelente = true;
+                            }
                             oCLlt11_evolucion.idAtencion = cLlt03_atencion.idAtencion;
                             oCLlt11_evolucion.descEvolucion = cLlt03_atencion.oListEvolucion[i].descEvolucion;
                             db.CLlt11_evolucion.Add(oCLlt11_evolucion);
@@ -207,17 +240,52 @@ namespace Asiri_ERP.Controllers
                             db.SaveChanges();
                         }
                     }
-
-                    return Json(new { Success = 1, resultado = true, ex = "", MaxJsonLength = Int64.MaxValue });
-
+                    
+                    ts.Complete();
                 }
-                catch (Exception ex)
-                {
-                    return Json(new { Success = 0, ex = ex.Message.ToString(), MaxJsonLength = Int64.MaxValue });
-                }
-
+                respuesta.redirect = "/CLlt03_atencion/Index";
             }
-            return Json(cLlt03_atencion);
+            else
+            {
+                bool estado = ModelState.IsValid;
+                if (cLlt03_atencion.oListDiagnostico.Count == 0)
+                {
+                    ModelState.AddModelError("diagnostico-tratamiento", "Debe agregar un diagnostico y/o tratamiento");
+                    respuesta.respuesta = false;
+                    respuesta.error = "Debe agregar un diagnostico y/o tratamiento";
+
+                }
+                if(estado == false)
+                {
+                    ModelState.AddModelError("diagnostico-tratamiento", "Debe completar todos los campos necesarios");
+                    respuesta.respuesta = false;
+                    respuesta.error = "Debe completar todos los campos necesarios";
+
+                }
+                if (cLlt03_atencion.oListDiagnostico.Count == 0 && estado == false)
+                {
+                    ModelState.AddModelError("diagnostico-tratamiento", "Debe completar todos los campos necesarios");
+                    respuesta.respuesta = false;
+                    respuesta.error = "Debe completar todos los campos necesarios";
+
+                }
+            }
+            
+            //try
+            //{
+
+
+
+            //    return Json(new { Success = 1, resultado = true, ex = "", MaxJsonLength = Int64.MaxValue });
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json(new { Success = 0, ex = ex.Message.ToString(), MaxJsonLength = Int64.MaxValue });
+            //}
+
+
+            return Json(respuesta);
 
         }
 

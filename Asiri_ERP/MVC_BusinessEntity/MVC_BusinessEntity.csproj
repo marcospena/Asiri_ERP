@@ -151,6 +151,7 @@
     <Compile Include="PROt06_unidadDeMedida.cs">
       <DependentUpon>dbAsiri_ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="ResponseModel.cs" />
     <Compile Include="RHUt01_empleado.cs">
       <DependentUpon>dbAsiri_ERP.tt</DependentUpon>
     </Compile>
