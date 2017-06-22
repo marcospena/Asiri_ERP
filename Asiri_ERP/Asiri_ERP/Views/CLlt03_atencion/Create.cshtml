@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Create</title>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.loading.js"></script>
     <script type="text/javascript" src="~/Scripts/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/Scripts/plugins/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/essential-plugins.js"></script>
@@ -26,6 +27,7 @@
     <script src="~/Scripts/jquery.fileuploader.js"></script>
     <script src="~/Scripts/jquery.fileuploader.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.form.min.js"></script>
+    <link href="~/Content/css/jquery.loading.css" rel="stylesheet" />
 
     <style>
         .borde1 {
@@ -84,13 +86,20 @@
         $(document).ready(function () {
             
             
+            
+
             $("#form-atencion").on("submit", function () {
+                
+                $('body').loading({
+                    zIndex: 9999999999999999,
+                    message: "Cargando..."
+                }, 'start');
                 var form = $(this);
                 var Atencion = Datos();
                 
                 if (form.validate()) {
                     form.ajaxSubmit({
-                        datatypen: 'JSON',
+                        datatype: 'JSON',
                         type: 'post',
                         data: {
                             'cLlt03_atencion': Atencion
@@ -98,10 +107,10 @@
                         url: form.attr('action'),
                         success: function (r) {
                             if (r.respuesta) {
-                                alert(r.redirect);
-                                window.location.href = '/CLlt03_atencion/Index"';
+                                window.location.href = r.redirect;
                             }
                             else {
+                                $('body').loading('stop');
                                 $("#diagnostico-tratamiento-validacion").text(r.error).show();
                             }
                         },
@@ -109,8 +118,11 @@
                             alert(errorThrown);
                         }
                     });
+                
                 }
+                
                 return false;
+                
             });
 
             $('#tableExamenFisico, #tableEstudioCompl').dataTable({
@@ -1548,7 +1560,7 @@
 
                                                         </div>
 
-
+                                                       
                                                     </div>
                                                     <div class="col-md-10">
                                                         <div class="card col-md-12">
@@ -2096,7 +2108,7 @@
                                                     <div class="row" >
                                                         <div class="col-lg-10">
                                                             <input type="submit" value="Create"  class="btn btn-default" />
-                                                            </br>
+                                                            
                                                             <div style="text-align:center;"> @Html.ValidationMessage("diagnostico-tratamiento", "", new { @class = "text-danger", id = "diagnostico-tratamiento-validacion" })</div>
                                                         </div>
                                                     </div>

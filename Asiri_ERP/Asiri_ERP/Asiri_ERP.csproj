@@ -230,6 +230,7 @@
     <Content Include="Content\css\hstyle.css" />
     <Content Include="Content\css\jquery.fileuploader-theme-thumbnails.css" />
     <Content Include="Content\css\jquery.fileuploader.css" />
+    <Content Include="Content\css\jquery.loading.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\react-select.css" />
     <Content Include="Content\css\select2.min.css" />
@@ -277,6 +278,7 @@
     <Content Include="Scripts\jquery.fileuploader.js" />
     <Content Include="Scripts\jquery.fileuploader.min.js" />
     <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.loading.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
